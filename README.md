@@ -68,6 +68,13 @@ State lives in `data/` next to the app (outside the web root): `bot.db`
    `BASE_URL` (the application URL with `https://`). Restart the app.
 5. Open `BASE_URL` in a browser once. The page registers the webhook. Done.
 
+> **Note:** when the app is created, cPanel replaces an existing
+> `passenger_wsgi.py` with a template that loads itself (`RecursionError`, HTTP
+> 500). Run `git checkout -- passenger_wsgi.py` in the application root and
+> `touch tmp/restart.txt` afterwards.
+
+To update: `git pull && touch tmp/restart.txt` in the application root.
+
 If your site rewrites unknown paths to PHP (for example a front controller
 that serves `/tools`), make sure the real directory created by Passenger is not
 rewritten, and keep an explicit rule for any page that has the same name as the
