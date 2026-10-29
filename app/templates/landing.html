@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GNOME PO Translator — translate .po files in Telegram</title>
+<meta name="description" content="Free and open source Telegram bot for translating gettext .po files for GNOME and other open source projects. Send a .po file, translate string by string, download the finished file. No software to install.">
+<link rel="canonical" href="{{BASE_URL}}">
+<meta property="og:type" content="website">
+<meta property="og:title" content="GNOME PO Translator — Telegram bot">
+<meta property="og:description" content="Translate GNOME .po files right in Telegram, from any phone. Free and open source.">
+<meta property="og:url" content="{{BASE_URL}}">
+<meta name="theme-color" content="#0b1020">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%233584e4'/%3E%3Ctext x='32' y='42' font-family='Arial' font-weight='700' font-size='26' fill='white' text-anchor='middle'%3EPO%3C/text%3E%3C/svg%3E">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"SoftwareApplication","name":"GNOME PO Translator","applicationCategory":"DeveloperApplication","operatingSystem":"Telegram","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Person","name":"{{DEV_NAME}}","url":"{{DEV_URL}}"},"url":"{{BASE_URL}}","license":"https://www.gnu.org/licenses/gpl-3.0.html"}
+</script>
+<style>
+:root{--bg:#0b1020;--panel:#121a30;--line:#22305a;--text:#e8ecf7;--muted:#9aa6c4;--accent:#3584e4;--accent2:#62a0ea;--ok:#57e389}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,Cantarell,sans-serif}
+a{color:var(--accent2)}
+.wrap{max-width:960px;margin:0 auto;padding:0 16px}
+header{display:flex;align-items:center;justify-content:space-between;padding:18px 0}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;text-decoration:none;color:var(--text)}
+.logo{width:34px;height:34px;border-radius:9px;background:#1c71d8;display:grid;place-items:center;font-size:13px;font-weight:800;color:#fff}
+.langs{display:flex;gap:6px}
+.langs button{background:transparent;border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:4px 11px;font:inherit;font-size:13px;cursor:pointer}
+.langs button[aria-pressed=true]{border-color:var(--accent);color:var(--text);background:#16264a}
+.hero{padding:44px 0 28px}
+.tag{display:inline-block;font-size:13px;color:var(--accent2);border:1px solid var(--line);border-radius:999px;padding:3px 12px;margin-bottom:16px}
+h1{font-size:clamp(30px,6vw,48px);line-height:1.12;margin:0 0 14px;letter-spacing:-.02em}
+.lead{color:var(--muted);font-size:18px;max-width:640px;margin:0 0 26px}
+.cta{display:inline-flex;align-items:center;gap:10px;background:#1c71d8;color:#fff;text-decoration:none;font-weight:700;padding:14px 22px;border-radius:12px;transition:transform .15s ease,background .15s ease}
+.cta:hover{background:#1a5fb4;transform:translateY(-1px)}
+.cta:focus-visible,.langs button:focus-visible{outline:2px solid var(--accent2);outline-offset:3px}
+.handle{color:var(--muted);margin-left:12px;font-size:14px}
+.notice{margin-top:16px;padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:var(--muted);display:none}
+.notice button{background:none;border:none;color:var(--accent2);font:inherit;cursor:pointer;text-decoration:underline;padding:0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:30px 0}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px}
+.card b{display:block;margin-bottom:6px}
+.card p{margin:0;color:var(--muted);font-size:15px}
+.num{width:28px;height:28px;border-radius:50%;background:#16264a;color:var(--accent2);display:grid;place-items:center;font-weight:700;margin-bottom:10px}
+h2{font-size:22px;margin:40px 0 6px}
+ul.features{list-style:none;padding:0;margin:14px 0;display:grid;gap:10px}
+ul.features li{padding-left:28px;position:relative;color:var(--muted)}
+ul.features li::before{content:"✓";position:absolute;left:4px;color:var(--ok);font-weight:700}
+footer{border-top:1px solid var(--line);margin-top:48px;padding:22px 0 40px;color:var(--muted);font-size:14px}
+footer p{margin:6px 0;overflow-wrap:anywhere}
+@media (max-width:520px){.handle{display:block;margin:10px 0 0}.lead{font-size:16px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <a class="brand" href="{{BASE_URL}}"><span class="logo">PO</span><span>GNOME PO Translator</span></a>
+  <nav class="langs" aria-label="Language">
+    <button type="button" data-set-lang="en" aria-pressed="true">EN</button>
+    <button type="button" data-set-lang="tr" aria-pressed="false">TR</button>
+    <button type="button" data-set-lang="az" aria-pressed="false">AZ</button>
+  </nav>
+</header>
+
+<main>
+<section class="hero">
+  <span class="tag" data-i18n="tag">💙 Made to support the GNOME translation community</span>
+  <h1 data-i18n="title">Translate .po files right in Telegram</h1>
+  <p class="lead" data-i18n="lead">Send a gettext .po file to the bot, translate it string by string like in Gtranslator or Poedit, and get the finished file back with an updated header. No software to install — it works on any phone.</p>
+  <a class="cta" id="cta" href="{{BOT_URL}}" rel="noopener"><span>✈️</span><span data-i18n="open">Open in Telegram</span></a>
+  <span class="handle">{{BOT_USERNAME}}</span>
+  <div class="notice" id="notice" role="status"><span data-i18n="redirect">Opening Telegram in</span> <b id="count">3</b>… <button type="button" id="stay" data-i18n="stay">Stay on this page</button></div>
+</section>
+
+<section class="grid" aria-label="How it works">
+  <div class="card"><div class="num">1</div><b data-i18n="s1t">Send the file</b><p data-i18n="s1">Download a .po file from Damned Lies (l10n.gnome.org) or any project and send it to the bot.</p></div>
+  <div class="card"><div class="num">2</div><b data-i18n="s2t">Translate</b><p data-i18n="s2">The bot shows one string at a time with its context and notes. Just reply with the translation.</p></div>
+  <div class="card"><div class="num">3</div><b data-i18n="s3t">Download</b><p data-i18n="s3">Tap “Save file” to receive the translated .po file, ready to upload.</p></div>
+</section>
+
+<h2 data-i18n="ft">Features</h2>
+<ul class="features">
+  <li data-i18n="f1">Untranslated, fuzzy or all strings — you choose what to work on</li>
+  <li data-i18n="f2">Plural forms, context, developer notes and source references</li>
+  <li data-i18n="f3">Checks placeholders (%s, %d, {name}), keyboard shortcuts (_) and markup before saving</li>
+  <li data-i18n="f4">Header is updated automatically: Last-Translator, PO-Revision-Date, Language, Plural-Forms</li>
+  <li data-i18n="f5">Untouched strings stay exactly as they were, so diffs stay small</li>
+  <li data-i18n="f6">Interface in English, Turkish and Azerbaijani; files are deleted after 14 days</li>
+  <li data-i18n="f7">Free and open source (GPL-3.0)</li>
+</ul>
+</main>
+
+<footer>
+  <p><span data-i18n="dev">Developer</span>: <b>{{DEV_NAME}}</b> · <a href="{{DEV_URL}}">{{DEV_URL}}</a> · <a href="https://t.me/{{DEV_TG}}">@{{DEV_TG}}</a></p>
+  <p><span data-i18n="src">Source code</span>: <a href="{{SOURCE_URL}}">{{SOURCE_URL}}</a></p>
+  <p data-i18n="tm">This is a volunteer project, not an official GNOME product. GNOME is a trademark of the GNOME Foundation.</p>
+</footer>
+</div>
+
+<script>
+(function () {
+  var botUrl = {{BOT_URL_JSON}};
+  var T = {
+    tr: {
+      tag: "💙 GNOME çeviri topluluğunu desteklemek için yapıldı",
+      title: ".po dosyalarını doğrudan Telegram'da çevirin",
+      lead: "Gettext .po dosyasını bota gönderin, Gtranslator veya Poedit'teki gibi metinleri tek tek çevirin ve başlığı güncellenmiş dosyayı geri alın. Program kurmanız gerekmez, her telefonda çalışır.",
+      open: "Telegram'da aç", redirect: "Telegram açılıyor:", stay: "Bu sayfada kal",
+      s1t: "Dosyayı gönderin", s1: "Damned Lies'tan (l10n.gnome.org) ya da herhangi bir projeden .po dosyasını indirip bota gönderin.",
+      s2t: "Çevirin", s2: "Bot her seferinde bir metni bağlamı ve notlarıyla gösterir. Çeviriyi yazıp göndermeniz yeterli.",
+      s3t: "İndirin", s3: "“Dosyayı kaydet” düğmesine dokunun, yüklemeye hazır çevrilmiş .po dosyası gelsin.",
+      ft: "Özellikler",
+      f1: "Çevrilmemiş, fuzzy ya da tüm metinler: neyle çalışacağınızı siz seçersiniz",
+      f2: "Çoğul biçimler, bağlam, geliştirici notları ve kaynak konumları",
+      f3: "Kaydetmeden önce yer tutucuları (%s, %d, {name}), kısayol harflerini (_) ve etiketleri denetler",
+      f4: "Başlık otomatik güncellenir: Last-Translator, PO-Revision-Date, Language, Plural-Forms",
+      f5: "Dokunulmayan metinler olduğu gibi kalır, böylece farklar küçük olur",
+      f6: "Arayüz İngilizce, Türkçe ve Azerbaycanca; dosyalar 14 gün sonra silinir",
+      f7: "Ücretsiz ve açık kaynak (GPL-3.0)",
+      dev: "Geliştirici", src: "Kaynak kod",
+      tm: "Bu gönüllü bir projedir, resmi bir GNOME ürünü değildir. GNOME, GNOME Foundation'ın ticari markasıdır."
+    },
+    az: {
+      tag: "💙 GNOME tərcümə icmasını dəstəkləmək üçün hazırlanıb",
+      title: ".po fayllarını birbaşa Telegram-da tərcümə edin",
+      lead: "Gettext .po faylını bota göndərin, Gtranslator və ya Poedit-dəki kimi sətirləri bir-bir tərcümə edin və başlığı yenilənmiş faylı geri alın. Heç bir proqram qurmağa ehtiyac yoxdur, istənilən telefonda işləyir.",
+      open: "Telegram-da aç", redirect: "Telegram açılır:", stay: "Bu səhifədə qal",
+      s1t: "Faylı göndərin", s1: "Damned Lies-dan (l10n.gnome.org) və ya istənilən layihədən .po faylını endirib bota göndərin.",
+      s2t: "Tərcümə edin", s2: "Bot hər dəfə bir sətri konteksti və qeydləri ilə göstərir. Sadəcə tərcüməni yazıb göndərin.",
+      s3t: "Endirin", s3: "“Faylı saxla” düyməsinə toxunun, yükləməyə hazır tərcümə olunmuş .po faylı gəlsin.",
+      ft: "İmkanlar",
+      f1: "Tərcümə olunmamış, fuzzy və ya bütün sətirlər: nə üzərində işləyəcəyinizi özünüz seçirsiniz",
+      f2: "Cəm formaları, kontekst, tərtibatçı qeydləri və mənbə istinadları",
+      f3: "Saxlamazdan əvvəl yer tutucuları (%s, %d, {name}), qısayol hərflərini (_) və teqləri yoxlayır",
+      f4: "Başlıq avtomatik yenilənir: Last-Translator, PO-Revision-Date, Language, Plural-Forms",
+      f5: "Toxunulmayan sətirlər olduğu kimi qalır, beləliklə fərqlər kiçik olur",
+      f6: "İnterfeys ingilis, türk və Azərbaycan dillərində; fayllar 14 gündən sonra silinir",
+      f7: "Pulsuz və açıq mənbəli (GPL-3.0)",
+      dev: "Tərtibatçı", src: "Mənbə kodu",
+      tm: "Bu könüllü layihədir, rəsmi GNOME məhsulu deyil. GNOME, GNOME Foundation-ın əmtəə nişanıdır."
+    }
+  };
+  var original = {};
+  document.querySelectorAll("[data-i18n]").forEach(function (el) { original[el.dataset.i18n] = el.textContent; });
+
+  function setLang(lang) {
+    var dict = T[lang] || {};
+    document.querySelectorAll("[data-i18n]").forEach(function (el) {
+      el.textContent = dict[el.dataset.i18n] || original[el.dataset.i18n];
+    });
+    document.documentElement.lang = T[lang] ? lang : "en";
+    document.querySelectorAll("[data-set-lang]").forEach(function (b) {
+      b.setAttribute("aria-pressed", String(b.dataset.setLang === document.documentElement.lang));
+    });
+    try { localStorage.setItem("lang", lang); } catch (e) {}
+  }
+  document.querySelectorAll("[data-set-lang]").forEach(function (b) {
+    b.addEventListener("click", function () { setLang(b.dataset.setLang); });
+  });
+
+  var params = new URLSearchParams(location.search);
+  var saved = null;
+  try { saved = localStorage.getItem("lang"); } catch (e) {}
+  var guess = (params.get("lang") || saved || navigator.language || "en").slice(0, 2).toLowerCase();
+  if (T[guess]) setLang(guess);
+
+  // Visitors coming from a search engine (or ?go=1) go straight to the bot.
+  var fromSearch = /(^|\.)(google|bing|yandex|duckduckgo|yahoo|ecosia|baidu)\./i.test(document.referrer.split("/")[2] || "");
+  var isCrawler = /bot|crawl|spider|slurp|lighthouse|preview/i.test(navigator.userAgent);
+  if (botUrl && !isCrawler && (fromSearch || params.get("go") === "1")) {
+    var left = 3, notice = document.getElementById("notice"), count = document.getElementById("count");
+    notice.style.display = "block";
+    var timer = setInterval(function () {
+      left -= 1; count.textContent = String(left);
+      if (left <= 0) { clearInterval(timer); location.href = botUrl; }
+    }, 1000);
+    document.getElementById("stay").addEventListener("click", function () {
+      clearInterval(timer); notice.style.display = "none";
+    });
+  }
+})();
+</script>
+</body>
+</html>

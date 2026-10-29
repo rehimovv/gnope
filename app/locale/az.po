@@ -1,0 +1,547 @@
+# Azerbaijani translation of the GNOME PO Telegram bot interface.
+# This file is distributed under the same license as the gnome-po-telegram-bot package.
+# Ramal Rahimov <https://azelinux.com>, 2026.
+msgid ""
+msgstr ""
+"Project-Id-Version: gnome-po-telegram-bot\n"
+"PO-Revision-Date: 2026-10-30 12:00+0000\n"
+"Last-Translator: Ramal Rahimov <https://azelinux.com>\n"
+"Language-Team: Azerbaijani <https://l10n.gnome.org/teams/az/>\n"
+"Language: az\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: app/bootstrap.py:38
+msgid ""
+"Translate gettext .po files for GNOME and other open source projects right in"
+" Telegram. Send a .po file, translate it string by string and get the "
+"finished file back. Free and open source, made by a volunteer to support the "
+"GNOME translation community."
+msgstr ""
+"GNOME və digər açıq mənbəli layihələrin gettext .po fayllarını birbaşa "
+"Telegram-da tərcümə edin. .po faylı göndərin, sətirləri bir-bir tərcümə edin "
+"və hazır faylı geri alın. Pulsuz və açıq mənbəli; GNOME tərcümə icmasını "
+"dəstəkləmək üçün könüllü tərəfindən hazırlanıb."
+
+#: app/bootstrap.py:43
+msgid "Translate GNOME .po files right in Telegram. Free and open source."
+msgstr ""
+"GNOME .po fayllarını birbaşa Telegram-da tərcümə edin. Pulsuz və açıq "
+"mənbəli."
+
+#: app/bootstrap.py:28
+msgid "Start and choose the language"
+msgstr "Başla və dili seç"
+
+#: app/bootstrap.py:29
+msgid "Show the current string again"
+msgstr "Cari sətri yenidən göstər"
+
+#: app/bootstrap.py:30
+msgid "Progress of the current file"
+msgstr "Cari faylın gedişatı"
+
+#: app/bootstrap.py:31
+msgid "Get the translated file now"
+msgstr "Tərcümə olunmuş faylı indi al"
+
+#: app/bootstrap.py:32
+msgid "Close the current file"
+msgstr "Cari faylı bağla"
+
+#: app/bootstrap.py:33
+msgid "Your name and email for the header"
+msgstr "Başlıq üçün adınız və e-poçtunuz"
+
+#: app/bootstrap.py:34
+msgid "Change the interface language"
+msgstr "İnterfeys dilini dəyiş"
+
+#: app/bootstrap.py:35
+msgid "How to use the bot"
+msgstr "Botdan necə istifadə etməli"
+
+#: app/bootstrap.py:36
+msgid "About this bot"
+msgstr "Bu bot haqqında"
+
+#: app/bot/common.py:68
+msgid ""
+"Send a .po or .pot file. I show the strings one at a time; reply with the "
+"translation. Line breaks and spaces at the start or end are copied from the "
+"source automatically."
+msgstr ""
+".po və ya .pot faylı göndərin. Sətirləri bir-bir göstərirəm; tərcümə ilə "
+"cavab verin. Əvvəldəki və sondakı sətir sonları və boşluqlar mənbədən "
+"avtomatik köçürülür."
+
+#: app/bot/common.py:90
+msgid ""
+"A free and open source Telegram bot for translating gettext .po files, made "
+"by a volunteer to support the GNOME translation community."
+msgstr ""
+"Gettext .po fayllarını tərcümə etmək üçün pulsuz və açıq mənbəli Telegram "
+"botu. GNOME tərcümə icmasını dəstəkləmək üçün könüllü tərəfindən hazırlanıb."
+
+#: app/bot/common.py:108
+msgid "This is written to the header of every file you save:"
+msgstr "Saxladığınız hər faylın başlığına bu yazılır:"
+
+#: app/bot/common.py:42
+msgid "Commands: /help"
+msgstr "Əmrlər: /help"
+
+#: app/bot/common.py:58
+msgid "Interface language: {name}"
+msgstr "İnterfeys dili: {name}"
+
+#: app/bot/common.py:67
+msgid "How it works"
+msgstr "Necə işləyir"
+
+#: app/bot/common.py:71
+msgid "show the current string again"
+msgstr "cari sətri yenidən göstər"
+
+#: app/bot/common.py:72
+msgid "progress of the current file"
+msgstr "cari faylın gedişatı"
+
+#: app/bot/common.py:73
+msgid "get the translated file now"
+msgstr "tərcümə olunmuş faylı indi al"
+
+#: app/bot/common.py:74
+msgid "close the current file"
+msgstr "cari faylı bağla"
+
+#: app/bot/common.py:75
+msgid "your name and email for the file header"
+msgstr "fayl başlığı üçün adınız və e-poçtunuz"
+
+#: app/bot/common.py:76
+msgid "change the interface language"
+msgstr "interfeys dilini dəyiş"
+
+#: app/bot/common.py:77
+msgid "about this bot"
+msgstr "bu bot haqqında"
+
+#: app/bot/common.py:79
+msgid "Files are deleted automatically after {days} days without activity."
+msgstr "Fayllar {days} gün fəaliyyətsiz qaldıqda avtomatik silinir."
+
+#: app/bot/common.py:93
+msgid "Developer"
+msgstr "Tərtibatçı"
+
+#: app/bot/common.py:96
+msgid "Source code (GPL-3.0)"
+msgstr "Mənbə kodu (GPL-3.0)"
+
+#: app/bot/common.py:98
+msgid ""
+"This is not an official GNOME product. GNOME is a trademark of the GNOME "
+"Foundation."
+msgstr ""
+"Bu rəsmi GNOME məhsulu deyil. GNOME, GNOME Foundation-ın əmtəə nişanıdır."
+
+#: app/bot/common.py:117
+msgid ""
+"What name should appear as the translator in the file header? Send your full "
+"name."
+msgstr ""
+"Fayl başlığında tərcüməçi kimi hansı ad görünsün? Adınızı və soyadınızı "
+"göndərin."
+
+#: app/bot/common.py:123
+msgid "Please send just your name, for example: Ramal Rahimov"
+msgstr "Zəhmət olmasa yalnız adınızı göndərin, məsələn: Ramal Rahimov"
+
+#: app/bot/common.py:127
+msgid ""
+"Thanks! Now send your email address. GNOME files list each translator as Name"
+" <email>."
+msgstr ""
+"Təşəkkürlər! İndi e-poçt ünvanınızı göndərin. GNOME faylları hər tərcüməçini "
+"Ad <e-poçt> şəklində qeyd edir."
+
+#: app/bot/common.py:134
+msgid "That does not look like an email address. Please try again."
+msgstr "Bu e-poçt ünvanına oxşamır. Zəhmət olmasa yenidən cəhd edin."
+
+#: app/bot/common.py:139
+msgid "Saved: {signature}"
+msgstr "Saxlanıldı: {signature}"
+
+#: app/bot/common.py:141 app/bot/upload.py:88
+msgid "Now send me a .po or .pot file to start translating."
+msgstr "Tərcüməyə başlamaq üçün indi mənə .po və ya .pot faylı göndərin."
+
+#: app/bot/common.py:40
+msgid ""
+"This bot is a volunteer project made to support the GNOME translation "
+"community."
+msgstr ""
+"Bu bot GNOME tərcümə icmasını dəstəkləmək üçün hazırlanmış könüllü layihədir."
+
+#: app/bot/common.py:38
+msgid "Tap “Save file” to get the translated file back"
+msgstr "Tərcümə olunmuş faylı almaq üçün “Faylı saxla” düyməsinə toxunun"
+
+#: app/bot/common.py:112
+msgid "Change"
+msgstr "Dəyiş"
+
+#: app/bot/common.py:36
+msgid "Translate the strings one by one"
+msgstr "Sətirləri bir-bir tərcümə edin"
+
+#: app/bot/common.py:34
+msgid "Send me a .po or .pot file"
+msgstr "Mənə .po və ya .pot faylı göndərin"
+
+#: app/bot/common.py:32
+msgid ""
+"I help you translate .po files for GNOME and other open source projects."
+msgstr ""
+"GNOME və digər açıq mənbəli layihələrin .po fayllarını tərcümə etməyinizə "
+"kömək edirəm."
+
+#: app/bot/router.py:68
+msgid "Please send a .po file or a text message."
+msgstr "Zəhmət olmasa .po faylı və ya mətn mesajı göndərin."
+
+#: app/bot/router.py:59
+msgid "Unknown command. See /help"
+msgstr "Naməlum əmr. Bax: /help"
+
+#: app/bot/translate.py:80
+msgid "What next?"
+msgstr "İndi nə edək?"
+
+#: app/bot/translate.py:257
+msgid "{done} of {total} translated · {fuzzy} fuzzy · {todo} untranslated"
+msgstr ""
+"{total} sətrin {done} qədəri tərcümə olunub · {fuzzy} fuzzy · {todo} tərcümə "
+"olunmayıb"
+
+#: app/bot/translate.py:259
+msgid "Upload it to Damned Lies (l10n.gnome.org) or send it to your team."
+msgstr "Damned Lies-a (l10n.gnome.org) yükləyin və ya komandanıza göndərin."
+
+#: app/bot/translate.py:280
+msgid "Close {name}?"
+msgstr "{name} bağlansın?"
+
+#: app/bot/translate.py:44
+msgid "No file is open. Send me a .po or .pot file to start."
+msgstr "Açıq fayl yoxdur. Başlamaq üçün mənə .po və ya .pot faylı göndərin."
+
+#: app/bot/translate.py:77
+msgid "You reached the end of this list. Here is your file:"
+msgstr "Bu siyahının sonuna çatdınız. Faylınız budur:"
+
+#: app/bot/translate.py:112
+msgid "Position: {pos} / {total}"
+msgstr "Mövqe: {pos} / {total}"
+
+#: app/bot/translate.py:124
+msgid "There is nothing to translate in this selection."
+msgstr "Bu seçimdə tərcümə ediləcək heç nə yoxdur."
+
+#: app/bot/translate.py:142
+msgid "Choose what to translate first:"
+msgstr "Əvvəlcə nəyi tərcümə edəcəyinizi seçin:"
+
+#: app/bot/translate.py:202
+msgid "This question is out of date."
+msgstr "Bu sual artıq köhnəlib."
+
+#: app/bot/translate.py:212
+msgid "Send the corrected translation."
+msgstr "Düzəldilmiş tərcüməni göndərin."
+
+#: app/bot/translate.py:225
+msgid "That card is out of date. Here is the current one:"
+msgstr "O kart artıq köhnəlib. Cari kart budur:"
+
+#: app/bot/translate.py:282
+msgid "You have changes that were not downloaded yet."
+msgstr "Hələ endirilməmiş dəyişiklikləriniz var."
+
+#: app/bot/translate.py:295
+msgid ""
+"File closed and deleted from the server. Send a new .po file whenever you "
+"like."
+msgstr ""
+"Fayl bağlandı və serverdən silindi. İstədiyiniz vaxt yeni .po faylı göndərə "
+"bilərsiniz."
+
+#: app/bot/translate.py:97 app/bot/upload.py:130
+msgid "What do you want to translate?"
+msgstr "Nəyi tərcümə etmək istəyirsiniz?"
+
+#: app/bot/translate.py:170
+msgid "Please send a corrected translation."
+msgstr "Zəhmət olmasa düzəldilmiş tərcümə göndərin."
+
+#: app/bot/translate.py:262
+msgid ""
+"I do not know the plural rules of this language. Please check the Plural-"
+"Forms line in the header."
+msgstr ""
+"Bu dilin cəm qaydalarını bilmirəm. Zəhmət olmasa başlıqdakı Plural-Forms "
+"sətrini yoxlayın."
+
+#: app/bot/translate.py:176
+msgid "Please check this translation:"
+msgstr "Zəhmət olmasa bu tərcüməni yoxlayın:"
+
+#: app/bot/translate.py:83
+msgid "Review all strings"
+msgstr "Bütün sətirləri nəzərdən keçir"
+
+#: app/bot/translate.py:84 app/bot/ui.py:87
+msgid "Close file"
+msgstr "Faylı bağla"
+
+#: app/bot/translate.py:169
+msgid "This translation would break the file:"
+msgstr "Bu tərcümə faylı pozar:"
+
+#: app/bot/translate.py:179
+msgid "Keep it"
+msgstr "Belə qalsın"
+
+#: app/bot/translate.py:180
+msgid "Edit"
+msgstr "Düzəlt"
+
+#: app/bot/ui.py:71
+msgid "Language: {name} ({code})"
+msgstr "Dil: {name} ({code})"
+
+#: app/bot/ui.py:98
+msgid "untranslated"
+msgstr "tərcümə olunmayıb"
+
+#: app/bot/ui.py:209
+msgid "Placeholders such as %s, %d or {{name}} do not match the source"
+msgstr "%s, %d və ya {{name}} kimi yer tutucular mənbə ilə uyğun gəlmir"
+
+#: app/bot/ui.py:210
+msgid "Markup tags differ from the source"
+msgstr "Format teqləri mənbədən fərqlidir"
+
+#: app/bot/ui.py:211
+msgid "Line breaks at the start or end differ from the source"
+msgstr "Əvvəldəki və ya sondakı sətir sonları mənbədən fərqlidir"
+
+#: app/bot/ui.py:212
+msgid "The translation is empty"
+msgstr "Tərcümə boşdur"
+
+#: app/bot/ui.py:60
+msgid "Total: {n}"
+msgstr "Cəmi: {n}"
+
+#: app/bot/ui.py:95
+msgid "fuzzy"
+msgstr "fuzzy"
+
+#: app/bot/ui.py:97
+msgid "translated"
+msgstr "tərcümə olunub"
+
+#: app/bot/ui.py:153
+msgid "Form {n}"
+msgstr "Forma {n}"
+
+#: app/bot/ui.py:217
+msgid "The source has one keyboard shortcut (_) but the translation has {n}"
+msgstr "Mənbədə bir klaviatura qısayolu (_) var, amma tərcümədə {n} dənədir"
+
+#: app/bot/ui.py:61
+msgid "Translated: {n}"
+msgstr "Tərcümə olunub: {n}"
+
+#: app/bot/ui.py:62
+msgid "Fuzzy: {n}"
+msgstr "Fuzzy: {n}"
+
+#: app/bot/ui.py:63
+msgid "Untranslated: {n}"
+msgstr "Tərcümə olunmayıb: {n}"
+
+#: app/bot/ui.py:108
+msgid "Note for translators"
+msgstr "Tərcüməçilər üçün qeyd"
+
+#: app/bot/ui.py:110
+msgid "Translator comment"
+msgstr "Tərcüməçi şərhi"
+
+#: app/bot/ui.py:112
+msgid "Context"
+msgstr "Kontekst"
+
+#: app/bot/ui.py:114
+msgid "Previous source"
+msgstr "Əvvəlki mənbə"
+
+#: app/bot/ui.py:121
+msgid ""
+"This text starts or ends with a line break. It is added to your translation "
+"automatically."
+msgstr ""
+"Bu mətn sətir sonu ilə başlayır və ya bitir. Tərcümənizə avtomatik əlavə "
+"olunur."
+
+#: app/bot/ui.py:123
+msgid "This text starts or ends with spaces. They are kept automatically."
+msgstr "Bu mətn boşluqla başlayır və ya bitir. Boşluqlar avtomatik saxlanılır."
+
+#: app/bot/ui.py:140
+msgid "Source (singular)"
+msgstr "Mənbə (tək)"
+
+#: app/bot/ui.py:141
+msgid "Source (plural)"
+msgstr "Mənbə (cəm)"
+
+#: app/bot/ui.py:143
+msgid "Source"
+msgstr "Mənbə"
+
+#: app/bot/ui.py:146
+msgid "Write the translators' names, one per line, e.g. Name Surname <email>."
+msgstr ""
+"Tərcüməçilərin adlarını hər sətirdə bir nəfər olmaqla yazın, məs. Ad Soyad "
+"<e-poçt>."
+
+#: app/bot/ui.py:159
+msgid "Send the translation for form {n} of {total} (n = {examples})."
+msgstr "Forma {n}/{total} üçün tərcüməni göndərin (n = {examples})."
+
+#: app/bot/ui.py:164
+msgid "Send your translation as a message."
+msgstr "Tərcümənizi mesaj kimi göndərin."
+
+#: app/bot/ui.py:183
+msgid "Approve"
+msgstr "Təsdiqlə"
+
+#: app/bot/ui.py:86
+msgid "All strings ({n})"
+msgstr "Bütün sətirlər ({n})"
+
+#: app/bot/ui.py:163
+msgid "Current translation"
+msgstr "Cari tərcümə"
+
+#: app/bot/ui.py:81
+msgid "Untranslated ({n})"
+msgstr "Tərcümə olunmayan ({n})"
+
+#: app/bot/ui.py:83
+msgid "Fuzzy ({n})"
+msgstr "Fuzzy ({n})"
+
+#: app/bot/ui.py:85
+msgid "Both ({n})"
+msgstr "Hər ikisi ({n})"
+
+#: app/bot/ui.py:186
+msgid "Back"
+msgstr "Geri"
+
+#: app/bot/ui.py:187
+msgid "Skip"
+msgstr "Keç"
+
+#: app/bot/ui.py:189
+msgid "Copy source"
+msgstr "Mənbəni kopyala"
+
+#: app/bot/ui.py:190
+msgid "Copy translation"
+msgstr "Tərcüməni kopyala"
+
+#: app/bot/ui.py:191
+msgid "Save file"
+msgstr "Faylı saxla"
+
+#: app/bot/ui.py:192
+msgid "Finish"
+msgstr "Bitir"
+
+#: app/bot/ui.py:200
+msgid "Save and close"
+msgstr "Saxla və bağla"
+
+#: app/bot/ui.py:201
+msgid "Close without saving"
+msgstr "Saxlamadan bağla"
+
+#: app/bot/ui.py:202
+msgid "Continue translating"
+msgstr "Tərcüməyə davam et"
+
+#: app/bot/upload.py:102
+msgid ""
+"Which language are you translating into? Send a language code such as az, tr,"
+" de or pt_BR."
+msgstr ""
+"Hansı dilə tərcümə edirsiniz? az, tr, de və ya pt_BR kimi dil kodu göndərin."
+
+#: app/bot/upload.py:110
+msgid "That is not a language code. Examples: az, tr, de, pt_BR, sr@latin."
+msgstr "Bu dil kodu deyil. Nümunələr: az, tr, de, pt_BR, sr@latin."
+
+#: app/bot/upload.py:24
+msgid "Please send a .po or .pot file."
+msgstr "Zəhmət olmasa .po və ya .pot faylı göndərin."
+
+#: app/bot/upload.py:27
+msgid "This file is too large. The limit is {mb} MB."
+msgstr "Bu fayl çox böyükdür. Hədd {mb} MB-dır."
+
+#: app/bot/upload.py:33
+msgid "You have reached today's upload limit. Please try again tomorrow."
+msgstr ""
+"Bugünkü yükləmə həddinə çatdınız. Zəhmət olmasa sabah yenidən cəhd edin."
+
+#: app/bot/upload.py:48
+msgid "This file has no strings to translate."
+msgstr "Bu faylda tərcümə ediləcək sətir yoxdur."
+
+#: app/bot/upload.py:54
+msgid ""
+"Before we start I need your name and email for the file header. This is asked"
+" only once."
+msgstr ""
+"Başlamazdan əvvəl fayl başlığı üçün adınız və e-poçtunuz lazımdır. Bu yalnız "
+"bir dəfə soruşulur."
+
+#: app/bot/upload.py:59
+msgid "You already have a file open. What should I do?"
+msgstr "Artıq açıq faylınız var. Nə edim?"
+
+#: app/bot/upload.py:40
+msgid "I could not download the file. Please send it again."
+msgstr "Faylı endirə bilmədim. Zəhmət olmasa yenidən göndərin."
+
+#: app/bot/upload.py:45
+msgid "I could not read this file as a PO file."
+msgstr "Bu faylı PO faylı kimi oxuya bilmədim."
+
+#: app/bot/upload.py:62
+msgid "Open the new file"
+msgstr "Yeni faylı aç"
+
+#: app/bot/upload.py:63
+msgid "Keep the current file"
+msgstr "Cari faylda qal"

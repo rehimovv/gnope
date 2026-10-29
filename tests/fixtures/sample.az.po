@@ -1,0 +1,59 @@
+# Azerbaijani translation for gnome-sample.
+# Copyright (C) 2024 gnome-sample's COPYRIGHT HOLDER
+# This file is distributed under the same license as the gnome-sample package.
+# Test Translator <test@example.org>, 2024.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: gnome-sample main\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-sample/issues/\n"
+"POT-Creation-Date: 2026-10-01 10:00+0000\n"
+"PO-Revision-Date: 2024-05-01 12:00+0400\n"
+"Last-Translator: Test Translator <test@example.org>\n"
+"Language-Team: Azerbaijani <https://l10n.gnome.org/teams/az/>\n"
+"Language: az\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Gtranslator 46.1\n"
+
+#. Translators: this is the application name
+#: data/org.gnome.Sample.desktop.in:3 src/main.vala:42
+msgid "Sample"
+msgstr "Nümunə"
+
+#: src/window.ui:10
+msgctxt "menu"
+msgid "_Undo %s"
+msgstr ""
+
+#: src/window.vala:88
+#, c-format
+msgid "Deleted %d file"
+msgid_plural "Deleted %d files"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/window.vala:120
+#, fuzzy, c-format
+#| msgid "Could not open “%s”"
+msgid "Could not open the file “%s”"
+msgstr "“%s” açıla bilmədi"
+
+#: src/window.vala:140
+msgid ""
+"This is a long description that spans more than one line in the source "
+"file so that wrapping is exercised by the round trip test.\n"
+msgstr ""
+
+#: src/about.vala:12
+msgid "translator-credits"
+msgstr "Test Translator <test@example.org>"
+
+#: src/window.ui:30
+msgid "Open <b>bold</b> link"
+msgstr ""
+
+#~ msgid "Old string"
+#~ msgstr "Köhnə sətir"
