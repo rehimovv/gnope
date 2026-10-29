@@ -76,15 +76,7 @@ def _reached_end(ctx: Ctx, s: Session, doc: PoDocument) -> None:
     ctx.deps.store.save_session(replace(s, card_message_id=0))
     ctx.send("🎉 " + ctx.t("You reached the end of this list. Here is your file:"))
     export(ctx)
-    ctx.send(
-        ctx.t("What next?"),
-        ui.keyboard(
-            [
-                [ui.button("📜 " + ctx.t("Review all strings"), "mode:a")],
-                [ui.button("✖️ " + ctx.t("Close file"), "fin:drop")],
-            ]
-        ),
-    )
+    ctx.send(ctx.t("What next?"), ui.end_keyboard(ctx, s.token))
 
 
 def resume(ctx: Ctx) -> None:
@@ -143,7 +135,8 @@ def handle_text(ctx: Ctx, text: str) -> None:
         return
     index = s.current
     if index is None:
-        _reached_end(ctx, s, doc)
+        # The file was already sent when the list ended; do not resend it.
+        ctx.send(ctx.t("What next?"), ui.end_keyboard(ctx, s.token))
         return
 
     entry = doc.entry(index)
@@ -280,14 +273,20 @@ def ask_finish(ctx: Ctx) -> None:
     text = "❔ " + ctx.t("Close {name}?", name=ui.esc(s.file_name))
     if s.changed:
         text += "\n" + ctx.t("You have changes that were not downloaded yet.")
-    ctx.send(text, ui.finish_keyboard(ctx))
+    ctx.send(text, ui.finish_keyboard(ctx, s.token))
 
 
-def close(ctx: Ctx, save_first: bool) -> None:
+def close(ctx: Ctx, save_first: bool, token: str) -> None:
+    s = _session(ctx)
+    if s is None:
+        _no_file(ctx)
+        return
+    if token != s.token:
+        ctx.send(ctx.t("This question is out of date."))
+        return
     if save_first and not export(ctx):
         return
-    s = _session(ctx)
-    if s and s.card_message_id:
+    if s.card_message_id:
         ctx.deps.api.clear_keyboard(ctx.chat_id, s.card_message_id)
     ctx.deps.store.delete_session(ctx.user.user_id)
     ctx.deps.files.delete_user(ctx.user.user_id)

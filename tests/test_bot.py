@@ -232,10 +232,52 @@ def test_second_upload_offers_choice_and_save_close(bot):
     bot.text("/save")
     assert bot.api.documents[-1]["name"] == "two.az.po"
     bot.text("/cancel")
-    assert "fin:save" in bot.api.buttons().values()
-    bot.tap("fin:drop")
+    drop = next(v for v in bot.api.buttons().values() if v.startswith("fin:drop:"))
+    bot.tap(drop)
     bot.text("/status")
     assert "No file is open" in bot.api.last["text"]
+
+
+def test_stale_close_button_does_not_close_a_newer_file(bot):
+    onboard(bot)
+    data = (FIXTURES / "sample.az.po").read_bytes()
+    bot.upload("one.az.po", data)
+    bot.text("/cancel")
+    old_drop = next(v for v in bot.api.buttons().values() if v.startswith("fin:drop:"))
+    bot.tap(old_drop)
+    bot.upload("two.az.po", data)
+    bot.tap(old_drop)  # button from the first file
+    assert "out of date" in bot.api.last["text"]
+    bot.text("/status")
+    assert "two.az.po" in bot.api.last["text"]
+    bot.tap("up:new")  # no pending upload any more
+    assert "out of date" in bot.api.last["text"]
+
+
+def test_html_sensitive_prompts_are_escaped(bot):
+    bot.text("/start")
+    bot.tap("ui:tr")
+    bot.text("Ramal Rahimov")
+    assert "<e-posta>" not in bot.api.last["text"] and "&lt;e-posta&gt;" in bot.api.last["text"]
+
+
+def test_commands_cancel_pending_questions(bot):
+    onboard(bot)
+    bot.text("/profile")
+    bot.tap("profile:edit")
+    bot.text("/help")
+    bot.text("some text")
+    assert "No file is open" in bot.api.last["text"]
+
+
+def test_non_object_json_is_rejected(bot):
+    status, _ = bot.request("POST", "/tools/poeditor/webhook", b"[1, 2]",
+                            {"HTTP_X_TELEGRAM_BOT_API_SECRET_TOKEN": bot.secret})
+    assert status.startswith("400")
+    status, _ = bot.request("POST", "/tools/poeditor/webhook", b"{}",
+                            {"HTTP_X_TELEGRAM_BOT_API_SECRET_TOKEN": "şifrə"})
+    assert status.startswith("403")
+    assert bot.request("GET", "/tools/poeditorx")[0].startswith("404")
 
 
 def test_stale_card_buttons_resend_current_card(bot):

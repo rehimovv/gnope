@@ -88,6 +88,15 @@ def mode_keyboard(ctx: Ctx, doc: PoDocument) -> dict:
     return keyboard(rows)
 
 
+def end_keyboard(ctx: Ctx, token: str) -> dict:
+    return keyboard(
+        [
+            [button("📜 " + ctx.t("Review all strings"), "mode:a")],
+            [button("✖️ " + ctx.t("Close file"), "fin:drop:" + token)],
+        ]
+    )
+
+
 # -- translation card --------------------------------------------------------
 
 def _status(ctx: Ctx, entry: polib.POEntry) -> str:
@@ -143,7 +152,7 @@ def _render_card(ctx: Ctx, doc: PoDocument, s: Session, nplurals: int, plural_ru
         parts += ["<b>{}</b>".format(ctx.t("Source")), pre(entry.msgid, limit)]
     parts += _whitespace_hints(ctx, entry.msgid)
     if entry.msgid == "translator-credits":
-        parts.append("👥 " + ctx.t("Write the translators' names, one per line, e.g. Name Surname <email>."))
+        parts.append("👥 " + esc(ctx.t("Write the translators' names, one per line, e.g. Name Surname <email>.")))
 
     current = current_translations(entry, nplurals)
     draft = list(s.plural_draft) + current[len(s.plural_draft):]
@@ -194,11 +203,11 @@ def card_keyboard(ctx: Ctx, doc: PoDocument, s: Session, nplurals: int) -> dict:
     )
 
 
-def finish_keyboard(ctx: Ctx) -> dict:
+def finish_keyboard(ctx: Ctx, token: str) -> dict:
     return keyboard(
         [
-            [button("💾 " + ctx.t("Save and close"), "fin:save")],
-            [button("🗑 " + ctx.t("Close without saving"), "fin:drop")],
+            [button("💾 " + ctx.t("Save and close"), "fin:save:" + token)],
+            [button("🗑 " + ctx.t("Close without saving"), "fin:drop:" + token)],
             [button("↩️ " + ctx.t("Continue translating"), "fin:back")],
         ]
     )

@@ -10,6 +10,8 @@ from app.bot.context import Ctx, Deps
 
 log = logging.getLogger(__name__)
 
+_QUESTION_STATES = ("ask_name", "ask_email", "ask_lang", "confirm")
+
 _COMMANDS: Dict[str, Callable[[Ctx], None]] = {
     "/start": common.start,
     "/help": common.help_text,
@@ -54,6 +56,9 @@ def _on_message(ctx: Ctx, message: dict) -> None:
             return
         handler = _COMMANDS.get(command)
         if handler:
+            # A command abandons any question the bot was waiting an answer for.
+            if ctx.user.state in _QUESTION_STATES:
+                ctx = ctx.set_state("")
             handler(ctx)
         else:
             ctx.send(ctx.t("Unknown command. See /help"))
@@ -120,9 +125,10 @@ def _on_callback(ctx: Ctx, data: str) -> None:
     elif head == "finish":
         translate.ask_finish(ctx)
     elif head == "fin":
-        if rest == "back":
+        action, _, token = rest.partition(":")
+        if action == "back":
             translate.resume(ctx)
         else:
-            translate.close(ctx, save_first=(rest == "save"))
+            translate.close(ctx, save_first=(action == "save"), token=token)
     else:
         log.info("unknown callback %r", head)

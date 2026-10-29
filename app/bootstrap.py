@@ -53,11 +53,18 @@ def webhook_secret(config: Config) -> str:
     if path.is_file():
         return path.read_text(encoding="ascii").strip()
     config.data_dir.mkdir(parents=True, exist_ok=True)
-    value = secrets.token_urlsafe(48)
-    fd = os.open(str(path), os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
+    tmp = path.with_name("{}.{}".format(path.name, secrets.token_hex(4)))
+    fd = os.open(str(tmp), os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
     with os.fdopen(fd, "w", encoding="ascii") as handle:
-        handle.write(value)
-    return value
+        handle.write(secrets.token_urlsafe(48))
+    try:
+        # link() fails if another request created the secret first; theirs wins.
+        os.link(str(tmp), str(path))
+    except FileExistsError:
+        pass
+    finally:
+        tmp.unlink()
+    return path.read_text(encoding="ascii").strip()
 
 
 def _state_path(config: Config) -> Path:

@@ -134,6 +134,9 @@ def open_session(ctx: Ctx, lang: str) -> None:
 
 def replace_current(ctx: Ctx) -> None:
     """The user chose to drop the open file in favour of the new upload."""
+    if ctx.deps.files.read_pending(ctx.user.user_id) is None:
+        ctx.send(ctx.t("This question is out of date."))
+        return
     ctx.deps.store.delete_session(ctx.user.user_id)
     start_from_pending(ctx)
 

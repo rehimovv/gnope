@@ -31,7 +31,10 @@ def cleanup(config: Config, store: Store, files: FileStore) -> int:
         removed += 1
     # Pending uploads and leftovers without a session.
     for folder in files.user_dirs():
-        newest = max((p.stat().st_mtime for p in folder.iterdir()), default=0)
+        try:
+            newest = max((p.stat().st_mtime for p in folder.iterdir()), default=0)
+        except OSError:  # removed while we looked at it
+            continue
         if newest < cutoff and folder.name.isdigit() and store.get_session(int(folder.name)) is None:
             files.delete_user(int(folder.name))
             removed += 1

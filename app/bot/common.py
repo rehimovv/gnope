@@ -124,7 +124,7 @@ def handle_name(ctx: Ctx, text: str) -> None:
         return
     resume = bool(ctx.user.state_data.get("resume"))
     ctx = ctx.set_state("ask_email", name=name, resume=resume)
-    ctx.send("✉️ " + ctx.t("Thanks! Now send your email address. GNOME files list each translator as Name <email>."))
+    ctx.send("✉️ " + ui.esc(ctx.t("Thanks! Now send your email address. GNOME files list each translator as Name <email>.")))
 
 
 def handle_email(ctx: Ctx, text: str) -> Tuple[Ctx, bool]:

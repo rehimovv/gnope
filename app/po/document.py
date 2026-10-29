@@ -137,7 +137,15 @@ class PoDocument:
 
     @classmethod
     def from_bytes(cls, data: bytes) -> "PoDocument":
-        return cls.parse(decode(data))
+        doc = cls.parse(decode(data))
+        # Output is always UTF-8, so a header declaring another charset is
+        # rewritten right away; otherwise the next load would decode wrongly.
+        content_type = doc.metadata.get("Content-Type", "")
+        match = _CHARSET.search(content_type)
+        if match and match.group(1).replace("-", "").upper() != "UTF8":
+            metadata = dict(doc.metadata, **{"Content-Type": _CHARSET.sub("charset=UTF-8", content_type)})
+            doc.set_header(doc.header_comments, doc.header_flags, metadata)
+        return doc
 
     # -- entries -----------------------------------------------------------
 

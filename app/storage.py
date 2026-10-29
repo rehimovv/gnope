@@ -9,6 +9,7 @@ from __future__ import annotations
 import json
 import sqlite3
 import time
+import zlib
 from contextlib import closing
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -84,6 +85,11 @@ class Session:
     def current(self) -> Optional[int]:
         return self.queue[self.position] if 0 <= self.position < len(self.queue) else None
 
+    @property
+    def token(self) -> str:
+        """Short id of the open file, put in destructive buttons to reject stale taps."""
+        return format(zlib.crc32(self.file_name.encode("utf-8")) & 0xFFFFFF, "x")
+
 
 class Store:
     def __init__(self, path: Path) -> None:
@@ -128,14 +134,10 @@ class Store:
 
     def save_user(self, user: User) -> User:
         self._write(
-            """INSERT INTO users (user_id, ui_lang, name, email, last_lang, state, state_data,
+            # Full-row replace: works on the old SQLite versions shipped by some hosts.
+            """INSERT OR REPLACE INTO users (user_id, ui_lang, name, email, last_lang, state, state_data,
                                   upload_day, upload_count, updated_at)
-               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-               ON CONFLICT(user_id) DO UPDATE SET
-                 ui_lang=excluded.ui_lang, name=excluded.name, email=excluded.email,
-                 last_lang=excluded.last_lang, state=excluded.state, state_data=excluded.state_data,
-                 upload_day=excluded.upload_day, upload_count=excluded.upload_count,
-                 updated_at=excluded.updated_at""",
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
             (
                 user.user_id, user.ui_lang, user.name, user.email, user.last_lang, user.state,
                 json.dumps(user.state_data), user.upload_day, user.upload_count, int(time.time()),

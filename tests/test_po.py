@@ -172,6 +172,26 @@ def test_accelerator_markup_and_newline_checks():
     assert checks.check(undo, [""])[0].code == "empty"
 
 
+def test_equivalent_formats_are_not_errors():
+    brace = polib.POEntry(msgid="{} of {}", flags=["python-brace-format"])
+    assert checks.check(brace, ["{1} / {0}"]) == []
+    assert checks.check(brace, ["{0} / {1}"]) == []
+    py = polib.POEntry(msgid="%d files", flags=["python-format"])
+    assert checks.check(py, ["%i fayl"]) == []
+
+
+def test_non_utf8_file_is_converted_and_stays_correct():
+    source = (
+        'msgid ""\nmsgstr ""\n"Content-Type: text/plain; charset=ISO-8859-1\\n"\n'
+        '"Language: pt\\n"\n\nmsgid "Hello"\nmsgstr "Olá é"\n\nmsgid "Bye"\nmsgstr ""\n'
+    ).encode("latin-1")
+    doc = PoDocument.from_bytes(source)
+    set_translation(doc, 1, ["Tchau ə"])
+    again = PoDocument.from_bytes(doc.to_bytes())
+    assert again.entry(0).msgstr == "Olá é" and again.entry(1).msgstr == "Tchau ə"
+    assert "charset=UTF-8" in again.metadata["Content-Type"]
+
+
 def test_plural_format_differences_are_only_warnings():
     doc = load("sample.az.po")
     issues = checks.check(_entry(doc, "Deleted %d file"), ["Bir fayl silindi", "%d fayl silindi"])

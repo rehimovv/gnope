@@ -66,12 +66,21 @@ def _printf_signature(text: str) -> Optional[Dict[int, str]]:
 
 def _python_signature(text: str) -> Counter:
     return Counter(
-        (name or "", conv) for name, conv in _PYTHON.findall(text) if conv != "%"
+        (name or "", _TYPE_GROUPS.get(conv, "string")) for name, conv in _PYTHON.findall(text) if conv != "%"
     )
 
 
 def _brace_signature(text: str) -> Counter:
-    return Counter(name.split(":")[0].split("!")[0] for name in _BRACE.findall(text))
+    """Field names, with automatic '{}' numbered the way str.format numbers them."""
+    fields = []
+    auto = 0
+    for raw in _BRACE.findall(text):
+        name = raw.split(":")[0].split("!")[0]
+        if name == "":
+            name = str(auto)
+            auto += 1
+        fields.append(name)
+    return Counter(fields)
 
 
 def _describe(sig: Dict[int, str]) -> str:

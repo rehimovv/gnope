@@ -56,7 +56,7 @@ class App:
     def _path(self, environ: dict) -> str:
         path = environ.get("PATH_INFO") or "/"
         base = self.config.base_path
-        if base and path.startswith(base):
+        if base and (path == base or path.startswith(base + "/")):
             path = path[len(base):]
         return "/" + path.strip("/")
 
@@ -80,8 +80,9 @@ class App:
     def _webhook(self, environ: dict, start_response: StartResponse) -> Iterable[bytes]:
         if not self.config.bot_token:
             return _respond(start_response, "503 Service Unavailable", b"not configured", "text/plain")
-        given = environ.get(SECRET_HEADER, "")
-        if not given or not hmac.compare_digest(given, bootstrap.webhook_secret(self.config)):
+        given = environ.get(SECRET_HEADER, "").encode("utf-8", "replace")
+        expected = bootstrap.webhook_secret(self.config).encode("ascii")
+        if not given or not hmac.compare_digest(given, expected):
             return _respond(start_response, "403 Forbidden", b"forbidden", "text/plain")
         try:
             length = int(environ.get("CONTENT_LENGTH") or 0)
@@ -92,6 +93,8 @@ class App:
         try:
             update = json.loads(environ["wsgi.input"].read(length).decode("utf-8"))
         except (ValueError, UnicodeDecodeError):
+            return _respond(start_response, "400 Bad Request", b"bad request", "text/plain")
+        if not isinstance(update, dict):
             return _respond(start_response, "400 Bad Request", b"bad request", "text/plain")
 
         update_id = update.get("update_id")
