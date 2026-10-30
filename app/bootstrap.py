@@ -3,6 +3,7 @@
 Runs automatically the first time the landing page is opened (and again
 whenever SETUP_VERSION changes), so deploying needs no shell access.
 It can also be run by hand:  python -m app.bootstrap
+or from cron, retrying until Telegram accepts it:  python -m app.bootstrap --if-needed
 """
 
 from __future__ import annotations
@@ -135,6 +136,9 @@ def ensure_setup(config: Config, api: TelegramApi, force: bool = False) -> Dict[
 
 if __name__ == "__main__":  # pragma: no cover - manual use on the server
     logging.basicConfig(level=logging.INFO)
+    import sys
+
     cfg = load()
-    result = ensure_setup(cfg, TelegramApi(cfg.bot_token), force=True)
+    # --if-needed (for cron): no-op once registered, retries after failures.
+    result = ensure_setup(cfg, TelegramApi(cfg.bot_token), force="--if-needed" not in sys.argv)
     print(json.dumps({k: v for k, v in result.items() if k != "secret"}, indent=2))  # noqa: T201

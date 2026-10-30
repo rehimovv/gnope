@@ -75,6 +75,16 @@ State lives in `data/` next to the app (outside the web root): `bot.db`
 
 To update: `git pull && touch tmp/restart.txt` in the application root.
 
+Optional cron job (cPanel → Cron Jobs, every 10 minutes) that registers the
+webhook if Telegram was unavailable at setup time and does nothing otherwise:
+
+```
+cd ~/gnome-po-bot && ~/virtualenv/gnome-po-bot/3.11/bin/python -m app.bootstrap --if-needed >/dev/null 2>&1
+```
+
+If `setWebhook` fails with "Failed to resolve host" (slow nameservers), set
+`WEBHOOK_IP` in `.env` to the server's IP address.
+
 If your site rewrites unknown paths to PHP (for example a front controller
 that serves `/tools`), make sure the real directory created by Passenger is not
 rewritten, and keep an explicit rule for any page that has the same name as the
