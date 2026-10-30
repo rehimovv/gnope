@@ -314,3 +314,18 @@ def test_config_defaults(tmp_path):
     assert cfg.base_path == "/tools/poeditor"
     assert cfg.webhook_url == "https://azelinux.com/tools/poeditor/webhook"
     assert replace(cfg, base_url="https://bot.example.org").base_path == ""
+
+
+def test_webhook_ip_is_sent_when_configured(tmp_path):
+    (tmp_path / ".env").write_text("BOT_TOKEN=1:x\nWEBHOOK_IP=203.0.113.5\n")
+    cfg = load(tmp_path, environ={})
+    sent = {}
+
+    class Api(FakeApi):
+        def call(self, method, params=None):
+            if method == "setWebhook":
+                sent.update(params)
+            return super().call(method, params)
+
+    state = bootstrap.ensure_setup(cfg, Api())  # type: ignore[arg-type]
+    assert sent["ip_address"] == "203.0.113.5" and state["username"] == "GnomePoBot"

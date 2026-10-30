@@ -85,15 +85,16 @@ def _write_state(config: Config, state: Dict[str, Any]) -> None:
 
 def _register(config: Config, api: TelegramApi) -> Dict[str, Any]:
     me = api.call("getMe")
-    api.call(
-        "setWebhook",
-        {
-            "url": config.webhook_url,
-            "secret_token": webhook_secret(config),
-            "allowed_updates": ["message", "callback_query"],
-            "max_connections": 10,
-        },
-    )
+    webhook: Dict[str, Any] = {
+        "url": config.webhook_url,
+        "secret_token": webhook_secret(config),
+        "allowed_updates": ["message", "callback_query"],
+        "max_connections": 10,
+    }
+    if config.webhook_ip:
+        # Lets Telegram skip DNS, for hosts whose nameservers answer slowly.
+        webhook["ip_address"] = config.webhook_ip
+    api.call("setWebhook", webhook)
     for code in UI_LANGUAGES:
         scope = {} if code == "en" else {"language_code": code}
         api.call("setMyCommands", dict(scope, commands=[
@@ -101,12 +102,21 @@ def _register(config: Config, api: TelegramApi) -> Dict[str, Any]:
         ]))
         api.call("setMyDescription", dict(scope, description=tr(code, DESCRIPTION)))
         api.call("setMyShortDescription", dict(scope, short_description=tr(code, SHORT_DESCRIPTION)))
-    return {"version": SETUP_VERSION, "webhook_url": config.webhook_url, "username": me.get("username", "")}
+    return {
+        "version": SETUP_VERSION,
+        "webhook_url": config.webhook_url,
+        "webhook_ip": config.webhook_ip,
+        "username": me.get("username", ""),
+    }
 
 
 def ensure_setup(config: Config, api: TelegramApi, force: bool = False) -> Dict[str, Any]:
     state = read_state(config)
-    current = state.get("version") == SETUP_VERSION and state.get("webhook_url") == config.webhook_url
+    current = (
+        state.get("version") == SETUP_VERSION
+        and state.get("webhook_url") == config.webhook_url
+        and state.get("webhook_ip", "") == config.webhook_ip
+    )
     if not config.bot_token or (current and not force):
         return state
     if not force and time.time() - state.get("last_attempt", 0) < RETRY_AFTER_SECONDS:

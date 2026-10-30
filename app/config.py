@@ -23,6 +23,7 @@ class Config:
     developer_url: str
     developer_telegram: str
     source_url: str
+    webhook_ip: str = ""
 
     @property
     def webhook_url(self) -> str:
@@ -75,6 +76,7 @@ def load(app_root: Optional[Path] = None, environ: Optional[Mapping[str, str]] =
         developer_url=get("DEVELOPER_URL"),
         developer_telegram=get("DEVELOPER_TELEGRAM").lstrip("@"),
         source_url=get("SOURCE_URL"),
+        webhook_ip=env.get("WEBHOOK_IP", "").strip(),
     )
 
 
@@ -89,4 +91,4 @@ _DEFAULTS = {
     "DEVELOPER_TELEGRAM": "rahimovramal",
     "SOURCE_URL": "https://github.com/rehimovv/gnome-po-telegram-bot",
 }
-_KEYS = set(_DEFAULTS) | {"BOT_TOKEN"}
+_KEYS = set(_DEFAULTS) | {"BOT_TOKEN", "WEBHOOK_IP"}
