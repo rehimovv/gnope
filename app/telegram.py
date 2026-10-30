@@ -16,6 +16,8 @@ log = logging.getLogger(__name__)
 
 API_ROOT = "https://api.telegram.org"
 TIMEOUT_SECONDS = 20
+# Firewalls on shared hosting often block Python's default user agent.
+USER_AGENT = "gnome-po-telegram-bot/1.0 (+https://github.com/rehimovv/gnome-po-telegram-bot)"
 
 
 class TelegramError(Exception):
@@ -42,6 +44,7 @@ class TelegramApi:
         so the token never appears in the relay host's access log.
         """
         headers = dict(headers or {})
+        headers.setdefault("User-Agent", USER_AGENT)
         if self._relay_url:
             headers["X-Relay-Path"] = path
             if self._relay_key:

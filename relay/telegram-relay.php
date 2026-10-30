@@ -54,6 +54,8 @@ function forward($url, $method, $body, $headers, $timeout)
         CURLOPT_TIMEOUT => $timeout,
         CURLOPT_FOLLOWLOCATION => false,
         CURLOPT_PROTOCOLS => CURLPROTO_HTTPS,
+        // Hosting firewalls (e.g. Imunify360) reject requests without a user agent.
+        CURLOPT_USERAGENT => 'gnome-po-telegram-relay/1.0 (+https://github.com/rehimovv/gnome-po-telegram-bot)',
     ]);
     if ($method === 'POST') {
         curl_setopt($ch, CURLOPT_POSTFIELDS, $body);
