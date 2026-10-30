@@ -85,6 +85,20 @@ cd ~/gnome-po-bot && ~/virtualenv/gnome-po-bot/3.11/bin/python -m app.bootstrap 
 If `setWebhook` fails with "Failed to resolve host" (slow nameservers), set
 `WEBHOOK_IP` in `.env` to the server's IP address.
 
+### Relay (when your host and Telegram do not get along)
+
+Some shared hosts reach Telegram badly (slow DNS, 502s, timeouts). Put
+`relay/telegram-relay.php` on any other PHP host, set `BOT_ID` (the number
+before `:` in the token) and `BOT_WEBHOOK` in it, and add to the bot's `.env`:
+
+```
+TELEGRAM_RELAY_URL=https://other-host.example/tg-relay/telegram-relay.php
+```
+
+Telegram then talks only to the relay, which forwards updates to the bot and
+the bot's API calls to Telegram. It stores nothing and only serves your bot.
+`telegram-relay.php?check` shows whether both sides are reachable.
+
 If your site rewrites unknown paths to PHP (for example a front controller
 that serves `/tools`), make sure the real directory created by Passenger is not
 rewritten, and keep an explicit rule for any page that has the same name as the
