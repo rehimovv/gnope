@@ -47,7 +47,7 @@ class App:
         config.data_dir.mkdir(parents=True, exist_ok=True)
         _setup_logging(config.data_dir)
         self.deps = Deps(
-            api=api or TelegramApi(config.bot_token),
+            api=api or TelegramApi(config.bot_token, relay_url=config.relay_url, relay_key=config.relay_key),
             store=Store(config.data_dir / "bot.db"),
             files=FileStore(config.data_dir),
             config=config,

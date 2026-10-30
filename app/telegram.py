@@ -27,11 +27,25 @@ class TelegramError(Exception):
 
 
 class TelegramApi:
-    def __init__(self, token: str, timeout: int = TIMEOUT_SECONDS) -> None:
+    def __init__(self, token: str, timeout: int = TIMEOUT_SECONDS, relay_url: str = "", relay_key: str = "") -> None:
         self._token = token
         self._timeout = timeout
+        self._relay_url = relay_url
+        self._relay_key = relay_key
 
     # -- transport ---------------------------------------------------------
+
+    def _request(self, path: str, data: Optional[bytes] = None, headers: Optional[Dict[str, str]] = None) -> request.Request:
+        """Build a request for an API path such as '/bot<token>/getMe'.
+
+        With a relay (relay/telegram-relay.php) the path travels in a header,
+        so the token never appears in the relay host's access log.
+        """
+        headers = dict(headers or {})
+        if self._relay_url:
+            headers.update({"X-Relay-Key": self._relay_key, "X-Relay-Path": path})
+            return request.Request(self._relay_url, data=data, headers=headers)
+        return request.Request(API_ROOT + path, data=data, headers=headers)
 
     def _open(self, req: request.Request, method: str) -> Any:
         try:
@@ -51,11 +65,7 @@ class TelegramApi:
 
     def call(self, method: str, params: Optional[Dict[str, Any]] = None) -> Any:
         data = json.dumps(params or {}).encode("utf-8")
-        req = request.Request(
-            "{}/bot{}/{}".format(API_ROOT, self._token, method),
-            data=data,
-            headers={"Content-Type": "application/json"},
-        )
+        req = self._request("/bot{}/{}".format(self._token, method), data, {"Content-Type": "application/json"})
         return self._open(req, method)
 
     # -- helpers -----------------------------------------------------------
@@ -102,10 +112,10 @@ class TelegramApi:
         )
         parts.append(content)
         parts.append("\r\n--{}--\r\n".format(boundary).encode("utf-8"))
-        req = request.Request(
-            "{}/bot{}/sendDocument".format(API_ROOT, self._token),
-            data=b"".join(parts),
-            headers={"Content-Type": "multipart/form-data; boundary={}".format(boundary)},
+        req = self._request(
+            "/bot{}/sendDocument".format(self._token),
+            b"".join(parts),
+            {"Content-Type": "multipart/form-data; boundary={}".format(boundary)},
         )
         self._open(req, "sendDocument")
 
@@ -113,10 +123,12 @@ class TelegramApi:
         info = self.call("getFile", {"file_id": file_id})
         if int(info.get("file_size") or 0) > max_bytes:
             raise TelegramError("getFile", "file too large")
-        req = request.Request("{}/file/bot{}/{}".format(API_ROOT, self._token, info["file_path"]))
+        req = self._request("/file/bot{}/{}".format(self._token, info["file_path"]))
         try:
             with request.urlopen(req, timeout=self._timeout) as resp:  # noqa: S310
                 data = resp.read(max_bytes + 1)
+        except error.HTTPError as exc:
+            raise TelegramError("download", "HTTP {}".format(exc.code)) from None
         except (error.URLError, OSError) as exc:
             raise TelegramError("download", "network error: {}".format(getattr(exc, "reason", exc))) from None
         if len(data) > max_bytes:

@@ -24,10 +24,13 @@ class Config:
     developer_telegram: str
     source_url: str
     webhook_ip: str = ""
+    relay_url: str = ""
+    relay_key: str = ""
 
     @property
     def webhook_url(self) -> str:
-        return self.base_url.rstrip("/") + "/webhook"
+        """The address Telegram posts updates to (the relay when one is set)."""
+        return self.relay_url or self.base_url.rstrip("/") + "/webhook"
 
     @property
     def base_path(self) -> str:
@@ -77,6 +80,8 @@ def load(app_root: Optional[Path] = None, environ: Optional[Mapping[str, str]] =
         developer_telegram=get("DEVELOPER_TELEGRAM").lstrip("@"),
         source_url=get("SOURCE_URL"),
         webhook_ip=env.get("WEBHOOK_IP", "").strip(),
+        relay_url=env.get("TELEGRAM_RELAY_URL", "").strip(),
+        relay_key=env.get("TELEGRAM_RELAY_KEY", "").strip(),
     )
 
 
@@ -91,4 +96,4 @@ _DEFAULTS = {
     "DEVELOPER_TELEGRAM": "rahimovramal",
     "SOURCE_URL": "https://github.com/rehimovv/gnome-po-telegram-bot",
 }
-_KEYS = set(_DEFAULTS) | {"BOT_TOKEN", "WEBHOOK_IP"}
+_KEYS = set(_DEFAULTS) | {"BOT_TOKEN", "WEBHOOK_IP", "TELEGRAM_RELAY_URL", "TELEGRAM_RELAY_KEY"}

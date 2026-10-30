@@ -92,7 +92,7 @@ def _register(config: Config, api: TelegramApi) -> Dict[str, Any]:
         "allowed_updates": ["message", "callback_query"],
         "max_connections": 10,
     }
-    if config.webhook_ip:
+    if config.webhook_ip and not config.relay_url:
         # Lets Telegram skip DNS, for hosts whose nameservers answer slowly.
         webhook["ip_address"] = config.webhook_ip
     api.call("setWebhook", webhook)
@@ -140,5 +140,6 @@ if __name__ == "__main__":  # pragma: no cover - manual use on the server
 
     cfg = load()
     # --if-needed (for cron): no-op once registered, retries after failures.
-    result = ensure_setup(cfg, TelegramApi(cfg.bot_token), force="--if-needed" not in sys.argv)
+    api = TelegramApi(cfg.bot_token, relay_url=cfg.relay_url, relay_key=cfg.relay_key)
+    result = ensure_setup(cfg, api, force="--if-needed" not in sys.argv)
     print(json.dumps({k: v for k, v in result.items() if k != "secret"}, indent=2))  # noqa: T201

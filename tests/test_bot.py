@@ -329,3 +329,18 @@ def test_webhook_ip_is_sent_when_configured(tmp_path):
 
     state = bootstrap.ensure_setup(cfg, Api())  # type: ignore[arg-type]
     assert sent["ip_address"] == "203.0.113.5" and state["username"] == "GnomePoBot"
+
+
+def test_relay_url_becomes_the_webhook(tmp_path):
+    (tmp_path / ".env").write_text("BOT_TOKEN=1:x\nWEBHOOK_IP=1.2.3.4\nTELEGRAM_RELAY_URL=https://relay.example/r.php\n")
+    cfg = load(tmp_path, environ={})
+    sent = {}
+
+    class Api(FakeApi):
+        def call(self, method, params=None):
+            if method == "setWebhook":
+                sent.update(params)
+            return super().call(method, params)
+
+    bootstrap.ensure_setup(cfg, Api())  # type: ignore[arg-type]
+    assert sent["url"] == "https://relay.example/r.php" and "ip_address" not in sent

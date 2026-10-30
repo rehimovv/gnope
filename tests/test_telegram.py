@@ -86,3 +86,13 @@ def test_helpers_swallow_errors(sent):
     api = TelegramApi("T")
     api.clear_keyboard(1, 2)
     api.answer_callback("cb", "text")
+
+
+def test_relay_moves_the_path_into_headers(sent):
+    requests, replies = sent
+    replies.append(ok({"id": 1}))
+    TelegramApi("1:T", relay_url="https://relay.example/r.php", relay_key="K").call("getMe")
+    req = requests[0]
+    assert req.full_url == "https://relay.example/r.php"
+    assert req.get_header("X-relay-path") == "/bot1:T/getMe" and req.get_header("X-relay-key") == "K"
+    assert "1:T" not in req.full_url
