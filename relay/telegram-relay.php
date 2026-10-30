@@ -98,10 +98,22 @@ if ($path !== '') {
     }
     $headers = ['Expect:'];
     $type = isset($_SERVER['CONTENT_TYPE']) ? $_SERVER['CONTENT_TYPE'] : '';
-    if ($type !== '') {
-        $headers[] = 'Content-Type: ' . $type;
+    if (stripos($type, 'multipart/form-data') === 0) {
+        // PHP has already parsed multipart bodies into $_POST/$_FILES and
+        // php://input is empty, so rebuild the form; curl sets the boundary.
+        $body = $_POST;
+        foreach ($_FILES as $field => $file) {
+            if (is_array($file['tmp_name']) || $file['error'] !== UPLOAD_ERR_OK) {
+                reply(400, 'bad upload');
+            }
+            $body[$field] = new CURLFile($file['tmp_name'], $file['type'], $file['name']);
+        }
+    } else {
+        if ($type !== '') {
+            $headers[] = 'Content-Type: ' . $type;
+        }
+        $body = $method === 'POST' ? file_get_contents('php://input') : '';
     }
-    $body = $method === 'POST' ? file_get_contents('php://input') : '';
     list($status, $out, $outType) = forward(API_HOST . $path, $method === 'POST' ? 'POST' : 'GET', $body, $headers, 60);
     reply($status, $out, $outType);
 }
