@@ -8,21 +8,23 @@
  *   Telegram  --webhook-->  this file  -->  BOT_WEBHOOK (the bot)
  *   the bot   --API call-->  this file  -->  api.telegram.org
  *
- * The relay stores nothing. API calls must carry RELAY_KEY; webhook calls are
- * passed on with Telegram's secret header, which the bot itself verifies.
- * Set TELEGRAM_RELAY_URL and TELEGRAM_RELAY_KEY in the bot's .env.
+ * The relay stores nothing. It only forwards API calls for BOT_ID (which still
+ * need the bot token to do anything), so it cannot be used as an open proxy.
+ * Webhook calls are passed on with Telegram's secret header, which the bot
+ * itself verifies. Set TELEGRAM_RELAY_URL in the bot's .env; RELAY_KEY is an
+ * optional extra check (then also set TELEGRAM_RELAY_KEY).
  *
  * License: GPL-3.0-or-later
  */
 
 // ---- configuration -------------------------------------------------------
-const RELAY_KEY = 'CHANGE_ME';  // long random string, same as TELEGRAM_RELAY_KEY
+const BOT_ID = 'CHANGE_ME';  // the number before ':' in the bot token (public)
 const BOT_WEBHOOK = 'https://azelinux.com/tools/poeditor/webhook';
+const RELAY_KEY = '';        // optional
 // ---------------------------------------------------------------------------
 
 const API_HOST = 'https://api.telegram.org';
 const MAX_BODY = 8388608; // 8 MB
-const API_PATH = '#^/(?:file/)?bot\d+:[A-Za-z0-9_-]+/[A-Za-z0-9_./-]+$#';
 
 function reply($status, $body, $type = 'text/plain; charset=utf-8')
 {
@@ -69,7 +71,11 @@ function forward($url, $method, $body, $headers, $timeout)
 
 function key_ok($given)
 {
-    return RELAY_KEY !== 'CHANGE_ME' && $given !== '' && hash_equals(RELAY_KEY, $given);
+    return RELAY_KEY === '' || ($given !== '' && hash_equals(RELAY_KEY, $given));
+}
+
+if (!ctype_digit(BOT_ID)) {
+    reply(503, 'relay not configured');
 }
 
 $method = isset($_SERVER['REQUEST_METHOD']) ? $_SERVER['REQUEST_METHOD'] : 'GET';
@@ -84,7 +90,8 @@ if ($path !== '') {
     if (!key_ok(header_value('X-Relay-Key'))) {
         reply(403, 'forbidden');
     }
-    if (!preg_match(API_PATH, $path) || strpos($path, '..') !== false) {
+    $allowed = '#^/(?:file/)?bot' . BOT_ID . ':[A-Za-z0-9_-]+/[A-Za-z0-9_./-]+$#';
+    if (!preg_match($allowed, $path) || strpos($path, '..') !== false) {
         reply(400, 'bad path');
     }
     $headers = ['Expect:'];
@@ -110,7 +117,7 @@ if ($method === 'POST' && $secret !== '') {
     reply($status, $out);
 }
 
-// 3) Health check: ?check=<RELAY_KEY>
+// 3) Health check: ?check (=<RELAY_KEY> when one is set); returns status codes only
 if (isset($_GET['check']) && key_ok((string) $_GET['check'])) {
     list($api) = forward(API_HOST . '/bot0:x/getMe', 'GET', '', [], 15);
     list($bot) = forward(BOT_WEBHOOK, 'POST', '{}', ['Content-Type: application/json'], 15);

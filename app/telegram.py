@@ -43,7 +43,9 @@ class TelegramApi:
         """
         headers = dict(headers or {})
         if self._relay_url:
-            headers.update({"X-Relay-Key": self._relay_key, "X-Relay-Path": path})
+            headers["X-Relay-Path"] = path
+            if self._relay_key:
+                headers["X-Relay-Key"] = self._relay_key
             return request.Request(self._relay_url, data=data, headers=headers)
         return request.Request(API_ROOT + path, data=data, headers=headers)
 
