@@ -17,7 +17,7 @@ log = logging.getLogger(__name__)
 API_ROOT = "https://api.telegram.org"
 TIMEOUT_SECONDS = 20
 # Firewalls on shared hosting often block Python's default user agent.
-USER_AGENT = "gnome-po-telegram-bot/1.0 (+https://github.com/rehimovv/gnome-po-telegram-bot)"
+USER_AGENT = "gnope/1.0 (+https://github.com/rehimovv/gnope)"
 
 
 class TelegramError(Exception):

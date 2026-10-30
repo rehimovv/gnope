@@ -99,7 +99,7 @@ def test_header_update_on_existing_po():
     assert '"PO-Revision-Date: 2026-10-30 12:00+0000\\n"' in text
     assert '"Last-Translator: Ramal Rahimov <ramal@example.org>\\n"' in text
     assert '"Language-Team: Azerbaijani <https://l10n.gnome.org/teams/az/>\\n"' in text
-    assert '"X-Generator: GNOME PO Telegram Bot 1.0\\n"' in text
+    assert '"X-Generator: Gnope 1.0\\n"' in text
     assert "# Ramal Rahimov <ramal@example.org>, 2026.\n#\n" in text
     assert "# Test Translator <test@example.org>, 2024.\n" in text
     keys = list(doc.metadata)

@@ -102,6 +102,8 @@ def _on_callback(ctx: Ctx, data: str) -> None:
         return
     if head == "profile":
         common.ask_name(ctx, resume_upload=False)
+    elif head == "note":
+        common.hide_reserve_note(ctx)
     elif head == "mode":
         translate.choose_mode(ctx, rest)
     elif head == "lang":

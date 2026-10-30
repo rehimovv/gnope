@@ -1,56 +1,56 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gnome-po-telegram-bot\n"
+"Project-Id-Version: gnope\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: app/bootstrap.py:38
+#: app/bootstrap.py:40
 msgid ""
-"Translate gettext .po files for GNOME and other open source projects right in"
-" Telegram. Send a .po file, translate it string by string and get the "
-"finished file back. Free and open source, made by a volunteer to support the "
-"GNOME translation community."
+"Gnope — translate gettext .po files from Telegram. Send a .po file, translate"
+" it string by string and get the finished file back. Made for GNOME "
+"translators, works with any gettext project. Free and open source."
 msgstr ""
 
-#: app/bootstrap.py:43
-msgid "Translate GNOME .po files right in Telegram. Free and open source."
-msgstr ""
-
-#: app/bootstrap.py:28
-msgid "Start and choose the language"
+#: app/bootstrap.py:45
+msgid ""
+"Gnope — translate gettext .po files from Telegram. Free and open source."
 msgstr ""
 
 #: app/bootstrap.py:29
-msgid "Show the current string again"
+msgid "Start and choose the language"
 msgstr ""
 
 #: app/bootstrap.py:30
-msgid "Progress of the current file"
+msgid "Show the current string again"
 msgstr ""
 
 #: app/bootstrap.py:31
-msgid "Get the translated file now"
+msgid "Progress of the current file"
 msgstr ""
 
 #: app/bootstrap.py:32
-msgid "Close the current file"
+msgid "Get the translated file now"
 msgstr ""
 
 #: app/bootstrap.py:33
-msgid "Your name and email for the header"
+msgid "Close the current file"
 msgstr ""
 
 #: app/bootstrap.py:34
-msgid "Change the interface language"
+msgid "Your name and email for the header"
 msgstr ""
 
 #: app/bootstrap.py:35
-msgid "How to use the bot"
+msgid "Change the interface language"
 msgstr ""
 
 #: app/bootstrap.py:36
+msgid "How to use the bot"
+msgstr ""
+
+#: app/bootstrap.py:37
 msgid "About this bot"
 msgstr ""
 
@@ -63,11 +63,11 @@ msgstr ""
 
 #: app/bot/common.py:90
 msgid ""
-"A free and open source Telegram bot for translating gettext .po files, made "
-"by a volunteer to support the GNOME translation community."
+"A free and open source tool made for GNOME translators. It works with any "
+"gettext project."
 msgstr ""
 
-#: app/bot/common.py:108
+#: app/bot/common.py:135
 msgid "This is written to the header of every file you save:"
 msgstr ""
 
@@ -115,59 +115,110 @@ msgstr ""
 msgid "Files are deleted automatically after {days} days without activity."
 msgstr ""
 
-#: app/bot/common.py:93
+#: app/bot/common.py:88
+msgid "translate gettext .po files from Telegram"
+msgstr ""
+
+#: app/bot/common.py:92
 msgid "Developer"
 msgstr ""
 
-#: app/bot/common.py:96
+#: app/bot/common.py:95
 msgid "Source code (GPL-3.0)"
+msgstr ""
+
+#: app/bot/common.py:97
+msgid "Privacy"
 msgstr ""
 
 #: app/bot/common.py:98
 msgid ""
-"This is not an official GNOME product. GNOME is a trademark of the GNOME "
-"Foundation."
+"Stored: your Telegram user ID, interface language, the name and email you "
+"entered for file headers, the language you last translated into, and the file"
+" you are working on."
 msgstr ""
 
-#: app/bot/common.py:117
+#: app/bot/common.py:100
+msgid ""
+"Your file is deleted when you close it (/cancel) or after {days} days without"
+" activity."
+msgstr ""
+
+#: app/bot/common.py:102
+msgid ""
+"File contents and translations are not written to logs and are not shared "
+"with anyone."
+msgstr ""
+
+#: app/bot/common.py:103
+msgid ""
+"Your name and email are kept so you do not have to enter them again; change "
+"them with /profile. To have them removed, write to the developer."
+msgstr ""
+
+#: app/bot/common.py:106
+msgid ""
+"Would you like to see Gnope in your language? Translate the .po file in "
+"app/locale/ and send it."
+msgstr ""
+
+#: app/bot/common.py:108
+msgid ""
+"Gnope is an independent project. It is not affiliated with or approved by the"
+" GNOME Foundation. GNOME is a trademark of the GNOME Foundation."
+msgstr ""
+
+#: app/bot/common.py:119
+msgid ""
+"Translating for GNOME? Reserve the file on Damned Lies (l10n.gnome.org) "
+"first, so that two people do not translate the same file."
+msgstr ""
+
+#: app/bot/common.py:127
+msgid "OK, I will not show this reminder again."
+msgstr ""
+
+#: app/bot/common.py:144
 msgid ""
 "What name should appear as the translator in the file header? Send your full "
 "name."
 msgstr ""
 
-#: app/bot/common.py:123
+#: app/bot/common.py:150
 msgid "Please send just your name, for example: Ramal Rahimov"
 msgstr ""
 
-#: app/bot/common.py:127
+#: app/bot/common.py:161
+msgid "That does not look like an email address. Please try again."
+msgstr ""
+
+#: app/bot/common.py:166
+msgid "Saved: {signature}"
+msgstr ""
+
+#: app/bot/common.py:154
 msgid ""
 "Thanks! Now send your email address. GNOME files list each translator as Name"
 " <email>."
 msgstr ""
 
-#: app/bot/common.py:134
-msgid "That does not look like an email address. Please try again."
-msgstr ""
-
-#: app/bot/common.py:139
-msgid "Saved: {signature}"
-msgstr ""
-
-#: app/bot/common.py:141 app/bot/upload.py:88
+#: app/bot/common.py:168 app/bot/upload.py:88
 msgid "Now send me a .po or .pot file to start translating."
 msgstr ""
 
 #: app/bot/common.py:40
-msgid ""
-"This bot is a volunteer project made to support the GNOME translation "
-"community."
+msgid "Made for GNOME translators, works with any gettext project."
 msgstr ""
 
 #: app/bot/common.py:38
 msgid "Tap “Save file” to get the translated file back"
 msgstr ""
 
-#: app/bot/common.py:112
+#: app/bot/common.py:121
+msgid "Don't show this again"
+msgstr ""
+
+#: app/bot/common.py:139
 msgid "Change"
 msgstr ""
 
@@ -180,31 +231,30 @@ msgid "Send me a .po or .pot file"
 msgstr ""
 
 #: app/bot/common.py:32
-msgid ""
-"I help you translate .po files for GNOME and other open source projects."
+msgid "I help you translate gettext .po files right in Telegram."
 msgstr ""
 
-#: app/bot/router.py:68
+#: app/bot/router.py:73
 msgid "Please send a .po file or a text message."
 msgstr ""
 
-#: app/bot/router.py:59
+#: app/bot/router.py:64
 msgid "Unknown command. See /help"
 msgstr ""
 
-#: app/bot/translate.py:80
+#: app/bot/translate.py:79 app/bot/translate.py:139
 msgid "What next?"
 msgstr ""
 
-#: app/bot/translate.py:257
+#: app/bot/translate.py:250
 msgid "{done} of {total} translated · {fuzzy} fuzzy · {todo} untranslated"
 msgstr ""
 
-#: app/bot/translate.py:259
+#: app/bot/translate.py:252
 msgid "Upload it to Damned Lies (l10n.gnome.org) or send it to your team."
 msgstr ""
 
-#: app/bot/translate.py:280
+#: app/bot/translate.py:273
 msgid "Close {name}?"
 msgstr ""
 
@@ -216,75 +266,67 @@ msgstr ""
 msgid "You reached the end of this list. Here is your file:"
 msgstr ""
 
-#: app/bot/translate.py:112
+#: app/bot/translate.py:104
 msgid "Position: {pos} / {total}"
 msgstr ""
 
-#: app/bot/translate.py:124
+#: app/bot/translate.py:116
 msgid "There is nothing to translate in this selection."
 msgstr ""
 
-#: app/bot/translate.py:142
+#: app/bot/translate.py:134
 msgid "Choose what to translate first:"
 msgstr ""
 
-#: app/bot/translate.py:202
+#: app/bot/translate.py:195 app/bot/translate.py:285 app/bot/upload.py:139
 msgid "This question is out of date."
 msgstr ""
 
-#: app/bot/translate.py:212
+#: app/bot/translate.py:205
 msgid "Send the corrected translation."
 msgstr ""
 
-#: app/bot/translate.py:225
+#: app/bot/translate.py:218
 msgid "That card is out of date. Here is the current one:"
 msgstr ""
 
-#: app/bot/translate.py:282
+#: app/bot/translate.py:275
 msgid "You have changes that were not downloaded yet."
 msgstr ""
 
-#: app/bot/translate.py:295
+#: app/bot/translate.py:294
 msgid ""
 "File closed and deleted from the server. Send a new .po file whenever you "
 "like."
 msgstr ""
 
-#: app/bot/translate.py:97 app/bot/upload.py:130
+#: app/bot/translate.py:89 app/bot/upload.py:131
 msgid "What do you want to translate?"
 msgstr ""
 
-#: app/bot/translate.py:170
+#: app/bot/translate.py:163
 msgid "Please send a corrected translation."
 msgstr ""
 
-#: app/bot/translate.py:262
+#: app/bot/translate.py:255
 msgid ""
 "I do not know the plural rules of this language. Please check the Plural-"
 "Forms line in the header."
 msgstr ""
 
-#: app/bot/translate.py:176
+#: app/bot/translate.py:169
 msgid "Please check this translation:"
 msgstr ""
 
-#: app/bot/translate.py:83
-msgid "Review all strings"
-msgstr ""
-
-#: app/bot/translate.py:84 app/bot/ui.py:87
-msgid "Close file"
-msgstr ""
-
-#: app/bot/translate.py:169
+#: app/bot/translate.py:162
 msgid "This translation would break the file:"
 msgstr ""
 
-#: app/bot/translate.py:179
+#: app/bot/translate.py:172
 msgid "Keep it"
 msgstr ""
 
-#: app/bot/translate.py:180
+#: app/bot/translate.py:173
 msgid "Edit"
 msgstr ""
 
@@ -292,23 +334,23 @@ msgstr ""
 msgid "Language: {name} ({code})"
 msgstr ""
 
-#: app/bot/ui.py:98
+#: app/bot/ui.py:107
 msgid "untranslated"
 msgstr ""
 
-#: app/bot/ui.py:209
+#: app/bot/ui.py:218
 msgid "Placeholders such as %s, %d or {{name}} do not match the source"
 msgstr ""
 
-#: app/bot/ui.py:210
+#: app/bot/ui.py:219
 msgid "Markup tags differ from the source"
 msgstr ""
 
-#: app/bot/ui.py:211
+#: app/bot/ui.py:220
 msgid "Line breaks at the start or end differ from the source"
 msgstr ""
 
-#: app/bot/ui.py:212
+#: app/bot/ui.py:221
 msgid "The translation is empty"
 msgstr ""
 
@@ -316,19 +358,19 @@ msgstr ""
 msgid "Total: {n}"
 msgstr ""
 
-#: app/bot/ui.py:95
+#: app/bot/ui.py:104
 msgid "fuzzy"
 msgstr ""
 
-#: app/bot/ui.py:97
+#: app/bot/ui.py:106
 msgid "translated"
 msgstr ""
 
-#: app/bot/ui.py:153
+#: app/bot/ui.py:162
 msgid "Form {n}"
 msgstr ""
 
-#: app/bot/ui.py:217
+#: app/bot/ui.py:226
 msgid "The source has one keyboard shortcut (_) but the translation has {n}"
 msgstr ""
 
@@ -344,57 +386,53 @@ msgstr ""
 msgid "Untranslated: {n}"
 msgstr ""
 
-#: app/bot/ui.py:108
+#: app/bot/ui.py:117
 msgid "Note for translators"
 msgstr ""
 
-#: app/bot/ui.py:110
+#: app/bot/ui.py:119
 msgid "Translator comment"
 msgstr ""
 
-#: app/bot/ui.py:112
+#: app/bot/ui.py:121
 msgid "Context"
 msgstr ""
 
-#: app/bot/ui.py:114
+#: app/bot/ui.py:123
 msgid "Previous source"
 msgstr ""
 
-#: app/bot/ui.py:121
+#: app/bot/ui.py:130
 msgid ""
 "This text starts or ends with a line break. It is added to your translation "
 "automatically."
 msgstr ""
 
-#: app/bot/ui.py:123
+#: app/bot/ui.py:132
 msgid "This text starts or ends with spaces. They are kept automatically."
 msgstr ""
 
-#: app/bot/ui.py:140
+#: app/bot/ui.py:149
 msgid "Source (singular)"
 msgstr ""
 
-#: app/bot/ui.py:141
+#: app/bot/ui.py:150
 msgid "Source (plural)"
 msgstr ""
 
-#: app/bot/ui.py:143
+#: app/bot/ui.py:152
 msgid "Source"
 msgstr ""
 
-#: app/bot/ui.py:146
-msgid "Write the translators' names, one per line, e.g. Name Surname <email>."
-msgstr ""
-
-#: app/bot/ui.py:159
+#: app/bot/ui.py:168
 msgid "Send the translation for form {n} of {total} (n = {examples})."
 msgstr ""
 
-#: app/bot/ui.py:164
+#: app/bot/ui.py:173
 msgid "Send your translation as a message."
 msgstr ""
 
-#: app/bot/ui.py:183
+#: app/bot/ui.py:192
 msgid "Approve"
 msgstr ""
 
@@ -402,7 +440,15 @@ msgstr ""
 msgid "All strings ({n})"
 msgstr ""
 
-#: app/bot/ui.py:163
+#: app/bot/ui.py:87 app/bot/ui.py:95
+msgid "Close file"
+msgstr ""
+
+#: app/bot/ui.py:155
+msgid "Write the translators' names, one per line, e.g. Name Surname <email>."
+msgstr ""
+
+#: app/bot/ui.py:172
 msgid "Current translation"
 msgstr ""
 
@@ -418,39 +464,43 @@ msgstr ""
 msgid "Both ({n})"
 msgstr ""
 
-#: app/bot/ui.py:186
+#: app/bot/ui.py:94
+msgid "Review all strings"
+msgstr ""
+
+#: app/bot/ui.py:195
 msgid "Back"
 msgstr ""
 
-#: app/bot/ui.py:187
+#: app/bot/ui.py:196
 msgid "Skip"
 msgstr ""
 
-#: app/bot/ui.py:189
+#: app/bot/ui.py:198
 msgid "Copy source"
 msgstr ""
 
-#: app/bot/ui.py:190
+#: app/bot/ui.py:199
 msgid "Copy translation"
 msgstr ""
 
-#: app/bot/ui.py:191
+#: app/bot/ui.py:200
 msgid "Save file"
 msgstr ""
 
-#: app/bot/ui.py:192
+#: app/bot/ui.py:201
 msgid "Finish"
 msgstr ""
 
-#: app/bot/ui.py:200
+#: app/bot/ui.py:209
 msgid "Save and close"
 msgstr ""
 
-#: app/bot/ui.py:201
+#: app/bot/ui.py:210
 msgid "Close without saving"
 msgstr ""
 
-#: app/bot/ui.py:202
+#: app/bot/ui.py:211
 msgid "Continue translating"
 msgstr ""
 

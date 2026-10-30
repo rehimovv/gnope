@@ -94,6 +94,6 @@ _DEFAULTS = {
     "DEVELOPER_NAME": "Ramal Rahimov",
     "DEVELOPER_URL": "https://azelinux.com",
     "DEVELOPER_TELEGRAM": "rahimovramal",
-    "SOURCE_URL": "https://github.com/rehimovv/gnome-po-telegram-bot",
+    "SOURCE_URL": "https://github.com/rehimovv/gnope",
 }
 _KEYS = set(_DEFAULTS) | {"BOT_TOKEN", "WEBHOOK_IP", "TELEGRAM_RELAY_URL", "TELEGRAM_RELAY_KEY"}

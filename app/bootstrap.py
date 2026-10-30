@@ -22,7 +22,7 @@ from app.telegram import TelegramApi, TelegramError
 
 log = logging.getLogger(__name__)
 
-SETUP_VERSION = 1
+SETUP_VERSION = 2
 RETRY_AFTER_SECONDS = 300
 
 COMMANDS = [
@@ -36,12 +36,13 @@ COMMANDS = [
     ("help", N_("How to use the bot")),
     ("about", N_("About this bot")),
 ]
+BOT_NAME = "Gnope"
 DESCRIPTION = N_(
-    "Translate gettext .po files for GNOME and other open source projects right in Telegram. "
+    "Gnope — translate gettext .po files from Telegram. "
     "Send a .po file, translate it string by string and get the finished file back. "
-    "Free and open source, made by a volunteer to support the GNOME translation community."
+    "Made for GNOME translators, works with any gettext project. Free and open source."
 )
-SHORT_DESCRIPTION = N_("Translate GNOME .po files right in Telegram. Free and open source.")
+SHORT_DESCRIPTION = N_("Gnope — translate gettext .po files from Telegram. Free and open source.")
 
 
 def secret_path(config: Config) -> Path:
@@ -96,6 +97,7 @@ def _register(config: Config, api: TelegramApi) -> Dict[str, Any]:
         # Lets Telegram skip DNS, for hosts whose nameservers answer slowly.
         webhook["ip_address"] = config.webhook_ip
     api.call("setWebhook", webhook)
+    api.call("setMyName", {"name": BOT_NAME})
     for code in UI_LANGUAGES:
         scope = {} if code == "en" else {"language_code": code}
         api.call("setMyCommands", dict(scope, commands=[

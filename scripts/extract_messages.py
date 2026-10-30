@@ -49,7 +49,7 @@ def extract(root: Path = APP) -> Dict[str, List[str]]:
 def write_pot(messages: Dict[str, List[str]], path: Path = POT) -> None:
     pot = polib.POFile(wrapwidth=79)
     pot.metadata = {
-        "Project-Id-Version": "gnome-po-telegram-bot",
+        "Project-Id-Version": "gnope",
         "MIME-Version": "1.0",
         "Content-Type": "text/plain; charset=UTF-8",
         "Content-Transfer-Encoding": "8bit",

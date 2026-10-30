@@ -124,6 +124,7 @@ def open_session(ctx: Ctx, lang: str) -> None:
     session = Session(user_id=uid, file_name=file_name, out_name=output_name(file_name, lang), lang=lang)
     ctx.deps.store.save_session(session)
     ctx = ctx.update_user(last_lang=lang, state="", state_data={})
+    common.reserve_note(ctx)
     ctx.send(
         ui.file_summary(ctx, file_name, lang, doc.stats())
         + "\n\n"

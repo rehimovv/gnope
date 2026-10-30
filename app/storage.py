@@ -26,7 +26,8 @@ CREATE TABLE IF NOT EXISTS users (
     state_data   TEXT NOT NULL DEFAULT '{}',
     upload_day   TEXT NOT NULL DEFAULT '',
     upload_count INTEGER NOT NULL DEFAULT 0,
-    updated_at   INTEGER NOT NULL DEFAULT 0
+    updated_at   INTEGER NOT NULL DEFAULT 0,
+    hide_reserve_note INTEGER NOT NULL DEFAULT 0
 );
 CREATE TABLE IF NOT EXISTS sessions (
     user_id         INTEGER PRIMARY KEY,
@@ -60,6 +61,7 @@ class User:
     state_data: Dict[str, Any] = field(default_factory=dict)
     upload_day: str = ""
     upload_count: int = 0
+    hide_reserve_note: bool = False
 
     @property
     def has_profile(self) -> bool:
@@ -97,6 +99,9 @@ class Store:
         path.parent.mkdir(parents=True, exist_ok=True)
         with closing(self._connect()) as conn:
             conn.executescript(_SCHEMA)
+            columns = {row["name"] for row in conn.execute("PRAGMA table_info(users)")}
+            if "hide_reserve_note" not in columns:  # databases created before this column existed
+                conn.execute("ALTER TABLE users ADD COLUMN hide_reserve_note INTEGER NOT NULL DEFAULT 0")
 
     def _connect(self) -> sqlite3.Connection:
         conn = sqlite3.connect(str(self._path), timeout=15)
@@ -130,17 +135,19 @@ class Store:
             state_data=json.loads(row["state_data"] or "{}"),
             upload_day=row["upload_day"],
             upload_count=row["upload_count"],
+            hide_reserve_note=bool(row["hide_reserve_note"]),
         )
 
     def save_user(self, user: User) -> User:
         self._write(
             # Full-row replace: works on the old SQLite versions shipped by some hosts.
             """INSERT OR REPLACE INTO users (user_id, ui_lang, name, email, last_lang, state, state_data,
-                                  upload_day, upload_count, updated_at)
-               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+                                  upload_day, upload_count, updated_at, hide_reserve_note)
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
             (
                 user.user_id, user.ui_lang, user.name, user.email, user.last_lang, user.state,
                 json.dumps(user.state_data), user.upload_day, user.upload_count, int(time.time()),
+                int(user.hide_reserve_note),
             ),
         )
         return user

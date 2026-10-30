@@ -10,7 +10,7 @@ from typing import Dict, List
 from app.po.document import PoDocument
 from app.po.plurals import language_name, parse_plural_forms, plural_forms_for
 
-GENERATOR = "GNOME PO Telegram Bot 1.0"
+GENERATOR = "Gnope 1.0"
 
 _KEY_ORDER = [
     "Project-Id-Version",

@@ -1,4 +1,4 @@
-# GNOME PO Çeviri Botu: Proje Tanımı ve Plan
+# Gnope: Proje Tanımı ve Plan
 
 > Durum: **Taslak, onay bekliyor.** Bu belge onaylanana kadar kod yazılmayacak.
 
@@ -111,7 +111,7 @@ Kullanıcı **💾 Kaydet** dediğinde (veya bütün girdiler bittiğinde) bot:
   - `Language-Team:`, `Language:`
   - `Plural-Forms:` (dile göre doğru kural)
   - `Content-Type: text/plain; charset=UTF-8`
-  - `X-Generator: GNOME PO Bot 1.0`
+  - `X-Generator: Gnope 1.0`
 - `.pot` dosyası gönderildiyse başlığı sıfırdan kurar.
 - Dosyayı **orijinal adıyla** geri gönderir (ör. `gnome-calculator.master.az.po`)
   ve son istatistiği yazar.
@@ -294,5 +294,5 @@ Kullanıcı (telefon) ──mesaj──▶ Telegram sunucusu
    kullanıcı adı veya GitHub linki)
 3. **Bot için alt alan adı:** ör. `bot.siten.com` uygun mu?
 4. **Dosya saklama süresi:** 14 gün uygun mu?
-5. **Bot adı:** ör. "GNOME PO Translator" / `@GnomePoBot` (BotFather'da müsait
+5. **Bot adı:** "Gnope" / `@gnope_bot` (BotFather'da müsait
    olup olmadığına sen bakarsın, token'ı sadece sen görürsün).

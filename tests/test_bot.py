@@ -45,7 +45,7 @@ class FakeApi:
 
     def call(self, method: str, params: Optional[dict] = None) -> Any:
         self.calls.append(method)
-        return {"username": "GnomePoBot"} if method == "getMe" else True
+        return {"username": "gnope_bot"} if method == "getMe" else True
 
     # helpers for assertions
     @property
@@ -125,8 +125,8 @@ def test_webhook_rejects_wrong_secret_and_bad_bodies(bot):
 def test_landing_page_registers_webhook_once(bot):
     status, body = bot.request("GET", "/tools/poeditor/")
     assert status == "200 OK"
-    assert b"https://t.me/GnomePoBot" in body and b"Ramal Rahimov" in body
-    assert "setWebhook" in bot.api.calls
+    assert b"https://t.me/gnope_bot" in body and b"Ramal Rahimov" in body
+    assert "setWebhook" in bot.api.calls and "setMyName" in bot.api.calls
     bot.api.calls.clear()
     bot.request("GET", "/tools/poeditor")
     assert "setWebhook" not in bot.api.calls
@@ -144,7 +144,7 @@ def test_duplicate_updates_are_processed_once(bot):
 
 def test_first_contact_is_english_with_language_choice(bot):
     bot.text("hello")
-    assert "Welcome to <b>GNOME PO Translator</b>" in bot.api.last["text"]
+    assert "Welcome to <b>Gnope</b>" in bot.api.last["text"]
     assert set(bot.api.buttons().values()) == {"ui:en", "ui:tr", "ui:az"}
 
 
@@ -302,11 +302,40 @@ def test_group_chats_are_ignored(bot):
     assert bot.api.messages == []
 
 
-def test_about_mentions_developer_and_gnome(bot):
+def test_about_shows_developer_privacy_and_independence(bot):
     onboard(bot, "tr")
     bot.text("/about")
     text = bot.api.last["text"]
-    assert "Ramal Rahimov" in text and "@rahimovramal" in text and "GNOME" in text
+    assert "<b>Gnope</b>" in text and "Ramal Rahimov" in text and "@rahimovramal" in text
+    assert tr("tr", "Privacy") in text and "app/locale/" in text and "GNOME Foundation" in text
+
+
+def test_reserve_reminder_is_shown_until_hidden(bot):
+    onboard(bot)
+    data = (FIXTURES / "sample.az.po").read_bytes()
+    bot.upload("one.az.po", data)
+    note = bot.api.messages[-2]
+    assert "l10n.gnome.org" in note["text"] and bot.api.buttons(note) == {"🔕 Don't show this again": "note:hide"}
+    assert "mode:u" in bot.api.buttons().values()  # the file opens right away
+    bot.tap("note:hide")
+    bot.text("/cancel")
+    bot.tap(next(v for v in bot.api.buttons().values() if v.startswith("fin:drop:")))
+    bot.upload("two.az.po", data)
+    assert not any("Damned Lies" in m["text"] for m in bot.api.messages[-2:])
+
+
+def test_old_databases_get_the_new_column(tmp_path):
+    import sqlite3
+    from app.storage import Store
+    db = tmp_path / "bot.db"
+    with sqlite3.connect(str(db)) as conn:
+        conn.execute("CREATE TABLE users (user_id INTEGER PRIMARY KEY, ui_lang TEXT, name TEXT NOT NULL DEFAULT '', "
+                     "email TEXT NOT NULL DEFAULT '', last_lang TEXT NOT NULL DEFAULT '', state TEXT NOT NULL DEFAULT '', "
+                     "state_data TEXT NOT NULL DEFAULT '{}', upload_day TEXT NOT NULL DEFAULT '', "
+                     "upload_count INTEGER NOT NULL DEFAULT 0, updated_at INTEGER NOT NULL DEFAULT 0)")
+        conn.execute("INSERT INTO users (user_id, ui_lang) VALUES (5, 'az')")
+    store = Store(db)
+    assert store.get_user(5).ui_lang == "az" and store.get_user(5).hide_reserve_note is False
 
 
 def test_config_defaults(tmp_path):
@@ -328,7 +357,7 @@ def test_webhook_ip_is_sent_when_configured(tmp_path):
             return super().call(method, params)
 
     state = bootstrap.ensure_setup(cfg, Api())  # type: ignore[arg-type]
-    assert sent["ip_address"] == "203.0.113.5" and state["username"] == "GnomePoBot"
+    assert sent["ip_address"] == "203.0.113.5" and state["username"] == "gnope_bot"
 
 
 def test_relay_url_becomes_the_webhook(tmp_path):

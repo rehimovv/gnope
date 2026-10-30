@@ -1,6 +1,6 @@
 <?php
 /*
- * Telegram relay for gnome-po-telegram-bot.
+ * Telegram relay for Gnope.
  *
  * Put this single file on any PHP host that talks to Telegram reliably when
  * the bot's own host does not (slow DNS, flaky routes to api.telegram.org):
@@ -55,7 +55,7 @@ function forward($url, $method, $body, $headers, $timeout)
         CURLOPT_FOLLOWLOCATION => false,
         CURLOPT_PROTOCOLS => CURLPROTO_HTTPS,
         // Hosting firewalls (e.g. Imunify360) reject requests without a user agent.
-        CURLOPT_USERAGENT => 'gnome-po-telegram-relay/1.0 (+https://github.com/rehimovv/gnome-po-telegram-bot)',
+        CURLOPT_USERAGENT => 'gnope-relay/1.0 (+https://github.com/rehimovv/gnope)',
     ]);
     if ($method === 'POST') {
         curl_setopt($ch, CURLOPT_POSTFIELDS, $body);

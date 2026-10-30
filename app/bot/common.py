@@ -11,10 +11,10 @@ from app.i18n import UI_LANGUAGES
 
 # Shown before a language is chosen, so it is always English.
 FIRST_WELCOME = (
-    "👋 Welcome to <b>GNOME PO Translator</b>!\n\n"
-    "This free and open source bot was made by a volunteer to support the "
-    "GNOME translation community. Send a <b>.po</b> file, translate it string "
-    "by string, and get the finished file back — right from your phone.\n\n"
+    "👋 Welcome to <b>Gnope</b>!\n\n"
+    "Translate gettext <b>.po</b> files from Telegram: send a file, translate it "
+    "string by string, and get the finished file back — right from your phone. "
+    "Made for GNOME translators, works with any gettext project. Free and open source.\n\n"
     "Please choose your language:"
 )
 
@@ -29,15 +29,15 @@ def ask_ui_language(ctx: Ctx) -> None:
 def welcome(ctx: Ctx) -> None:
     ctx.send(
         "👋 "
-        + ctx.t("I help you translate .po files for GNOME and other open source projects.")
+        + ctx.t("I help you translate gettext .po files right in Telegram.")
         + "\n\n1️⃣ "
         + ctx.t("Send me a .po or .pot file")
         + "\n2️⃣ "
         + ctx.t("Translate the strings one by one")
         + "\n3️⃣ "
         + ctx.t("Tap “Save file” to get the translated file back")
-        + "\n\n💙 "
-        + ctx.t("This bot is a volunteer project made to support the GNOME translation community.")
+        + "\n\n🌍 "
+        + ctx.t("Made for GNOME translators, works with any gettext project.")
         + "\n\n"
         + ctx.t("Commands: /help")
     )
@@ -85,19 +85,46 @@ def help_text(ctx: Ctx) -> None:
 def about(ctx: Ctx) -> None:
     cfg = ctx.deps.config
     lines = [
-        "🤖 <b>GNOME PO Translator</b>",
+        "🤖 <b>Gnope</b> — " + ctx.t("translate gettext .po files from Telegram"),
         "",
-        ctx.t("A free and open source Telegram bot for translating gettext .po files, "
-              "made by a volunteer to support the GNOME translation community."),
+        ctx.t("A free and open source tool made for GNOME translators. It works with any gettext project."),
         "",
         "👤 {}: <b>{}</b>".format(ctx.t("Developer"), ui.esc(cfg.developer_name)),
         "🌐 {}".format(ui.esc(cfg.developer_url)),
         "✈️ @{}".format(ui.esc(cfg.developer_telegram)),
         "💻 {}: {}".format(ctx.t("Source code (GPL-3.0)"), ui.esc(cfg.source_url)),
         "",
-        "ℹ️ " + ctx.t("This is not an official GNOME product. GNOME is a trademark of the GNOME Foundation."),
+        "🔒 <b>{}</b>".format(ctx.t("Privacy")),
+        "• " + ctx.t("Stored: your Telegram user ID, interface language, the name and email you entered for file "
+                     "headers, the language you last translated into, and the file you are working on."),
+        "• " + ctx.t("Your file is deleted when you close it (/cancel) or after {days} days without activity.",
+                     days=cfg.retention_days),
+        "• " + ctx.t("File contents and translations are not written to logs and are not shared with anyone."),
+        "• " + ctx.t("Your name and email are kept so you do not have to enter them again; change them with /profile. "
+                     "To have them removed, write to the developer."),
+        "",
+        "🌍 " + ctx.t("Would you like to see Gnope in your language? Translate the .po file in app/locale/ and send it."),
+        "",
+        "ℹ️ " + ctx.t("Gnope is an independent project. It is not affiliated with or approved by the GNOME Foundation. "
+                      "GNOME is a trademark of the GNOME Foundation."),
     ]
     ctx.send("\n".join(lines))
+
+
+def reserve_note(ctx: Ctx) -> None:
+    """Reminder shown with each new file; it never blocks the upload."""
+    if ctx.user.hide_reserve_note:
+        return
+    ctx.send(
+        "💡 " + ctx.t("Translating for GNOME? Reserve the file on Damned Lies (l10n.gnome.org) first, "
+                      "so that two people do not translate the same file."),
+        ui.keyboard([[ui.button("🔕 " + ctx.t("Don't show this again"), "note:hide")]]),
+    )
+
+
+def hide_reserve_note(ctx: Ctx) -> None:
+    ctx.update_user(hide_reserve_note=True)
+    ctx.send("🔕 " + ctx.t("OK, I will not show this reminder again."))
 
 
 def profile(ctx: Ctx) -> None:
